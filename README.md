@@ -8,5 +8,10 @@ A Discord bot made with Discord.JS
 5. Open `startbot.bat` to make the bot online.
 # Note:
 This bot is BETA so the bot don't have too many commands, just the cool commands.
-# Changelog:
+# • Changelog
+#### Added:
 + Added coinflip command. (50/50)
+#### Changed:
++ Nothing.
+#### Removed:
++ Nothing.
