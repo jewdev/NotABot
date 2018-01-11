@@ -98,6 +98,23 @@ bot.on("message", function(message) {
         case "invitebot":
         message.reply("Okay, you can invite me here: https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot&permissions=0");
         break;
+        
+        // Makes a radomize answer
+        case "coinflip":
+        let answers = [
+            'heads',
+            'tails',
+            'heads',
+            'tails',
+            'heads',
+            'tails',
+            'heads',
+            'tails',
+            'heads',
+            'tails'
+        ];
+      message.reply("`Coinflip: " + `${answers[~~(Math.random() * answers.length)]}` + "`");
+        break;
 
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
@@ -106,7 +123,8 @@ bot.on("message", function(message) {
     **${settings.botPREFIX}botinfo** - Give you info about the bot.
     **${settings.botPREFIX}8ball** - Ask the bot yes / no question.
     **${settings.botPREFIX}weather** - Send a place in the world... x_x
-    **${settings.botPREFIX}invitebot** - The bot will reply with his invite URL`);
+    **${settings.botPREFIX}invitebot** - The bot will reply with his invite URL
+    **${settings.botPREFIX}coinflip** - Flips a coin! (50/50)`);
         break;
 
         default:
