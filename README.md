@@ -9,9 +9,9 @@ A Discord bot made with Discord.JS
 # Note:
 This bot is BETA so the bot don't have too many commands, just the cool commands.
 # • Changelog
-#### Added:
+### Added:
 + Added coinflip command. (50/50)
-#### Changed:
+### Changed:
 + Nothing.
-#### Removed:
+### Removed:
 + Nothing.
