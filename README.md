@@ -12,6 +12,6 @@ This bot is BETA so the bot don't have too many commands, just the cool commands
 ### Added:
 + Added coinflip command. (50/50)
 ### Changed:
-+ Nothing.
++ The bot's token was the game that he's playing... lol
 ### Removed:
-+ Nothing.
++ Revomed the non-embed message in coinflip command
