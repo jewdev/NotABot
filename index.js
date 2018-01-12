@@ -62,6 +62,14 @@ bot.on("message", function(message) {
               {
                 name: "Contact me:",
                 value: "_**Blue Malgeran#5546**_"
+              },
+              {
+                name: "Social Media",
+                value: "[Twitter](https://twitter.com/BlueMalgeran) | [Steam](http://steamcommunity.com/id/BlueMalgeran/) | [GitHub](https://github.com/BlueMalgeran)"
+              },
+              {
+                name: "Invite the bot here",
+                value: "[:robot:](https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot&permissions=0)"
               }
             ],
             timestamp: new Date(),
@@ -220,13 +228,32 @@ bot.on("message", function(message) {
 
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
-        message.author.send(`**NotABot's commands:**
-    **${settings.botPREFIX}ping** - The bot will reply you with P O N G.
-    **${settings.botPREFIX}botinfo** - Give you info about the bot.
-    **${settings.botPREFIX}8ball** - Ask the bot yes / no question.
-    **${settings.botPREFIX}weather** - Send a place in the world... x_x
-    **${settings.botPREFIX}invitebot** - The bot will reply with his invite URL
-    **${settings.botPREFIX}coinflip** - Flips a coin! (50/50)`);
+
+    message.author.send({embed: {
+        color: 3447003,
+        author: {
+          name: bot.user.username,
+          icon_url: bot.user.avatarURL
+        },
+        title: "Bot's commands",
+        fields: [{
+            name: "Commands",
+            value: `**${settings.botPREFIX}ping** - The bot will reply you with P O N G.\n\
+**${settings.botPREFIX}botinfo** - Give you info about the bot.\n\
+**${settings.botPREFIX}8ball** - Ask the bot yes / no question.\n\
+**${settings.botPREFIX}weather** - Send a place in the world... x_x\n\
+**${settings.botPREFIX}invitebot** - The bot will reply with his invite URL\n\
+**${settings.botPREFIX}coinflip** - Flips a coin! (50/50)\n\
+**${settings.botPREFIX}userinfo** - Mention someone to get information about him. (TOP SECRET)`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: bot.user.avatarURL,
+          text: "© NotABot"
+        }
+      }
+    });
         break;
 
         default:
