@@ -8,10 +8,11 @@ A Discord bot made with Discord.JS
 5. Open `startbot.bat` to make the bot online.
 # Note:
 This bot is BETA so the bot don't have too many commands, just the cool commands.
+And there is a copyright on this bot, so if someone takes credit on this bot I can sue him.
 # • Changelog
 ### Added:
 + Added coinflip command. (50/50)
 ### Changed:
-+ Nothing.
++ The bot's token was the game that he's playing instead the bot's prefix... lol
 ### Removed:
-+ Nothing.
++ Revomed the non-embed message in coinflip command
