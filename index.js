@@ -19,7 +19,7 @@ var fortunes = [
 
 // Functions when the bot is online
 bot.on("ready", function() {
-    console.log("NotABot is ready!");
+    console.log("Bot connected to: " + bot.user.username);
 
     var answers = [
         `${bot.guilds.size} Servers`,
@@ -226,6 +226,103 @@ bot.on("message", function(message) {
     });
         break;
 
+        case "avatar":
+        if(message.mentions.users.first()) { //Check if the message has a mention in it.
+            let user = message.mentions.users.first(); //Since message.mentions.users returns a collection; we must use the first() method to get the first in the collection.
+            let output = user.username + "#" + user.discriminator /*Username and Discriminator*/ +
+            "\nAvatar URL: " + user.avatarURL; /*The Avatar URL*/
+            message.channel.sendMessage(output); //We send the output in the current channel.
+      } else {
+            message.reply("Please mention someone :thinking:"); //Reply with a mention saying "Invalid user."
+      }
+        break;
+
+        case "uptime":
+        let ms = bot.uptime;
+        let cd = 24 * 60 * 60 * 1000; // Calc days
+        let ch = 60 * 60 * 1000; // Calc hours
+        let cm = 60 * 1000; // Calc minutes
+        let cs = 1000; // Calc seconds
+        let days = Math.floor(ms / cd);
+        let dms = days * cd; // Days, in ms
+        let hours = Math.floor((ms - dms) / ch);
+        let hms = hours * ch; // Hours, in ms
+        let minutes = Math.floor((ms - dms - hms) / cm);
+        let mms = minutes * cm; // Minutes, in ms
+        let seconds = Math.round((ms - dms - hms - mms) / cs);
+        if (seconds === 60) {
+            minutes++; // Increase by 1
+            seconds = 0;
+        }
+        if (minutes === 60) {
+            hours++; // Inc by 1
+            minutes = 0;
+        }
+        if (hours === 24) {
+            days++; // Increase by 1
+            hours = 0;
+        }
+        let dateStrings = [];
+    
+        if (days === 1) {
+            dateStrings.push('**1** day');
+        } else if (days > 1) {
+            dateStrings.push('**' + String(days) + '** days');
+        }
+    
+        if (hours === 1) {
+            dateStrings.push('**1** hour');
+        } else if (hours > 1) {
+            dateStrings.push('**' + String(hours) + '** hours');
+        }
+    
+        if (minutes === 1) {
+            dateStrings.push('**1** minute');
+        } else if (minutes > 1) {
+            dateStrings.push('**' + String(minutes) + '** minutes');
+        }
+    
+        if (seconds === 1) {
+            dateStrings.push('**1** second');
+        } else if (seconds > 1) {
+            dateStrings.push('**' + String(seconds) + '** seconds');
+        }
+    
+        let dateString = '';
+        for (let i = 0; i < dateStrings.length - 1; i++) {
+            dateString += dateStrings[i];
+            dateString += ', ';
+        }
+        if (dateStrings.length >= 2) {
+            dateString = dateString.slice(0, dateString.length - 2) + dateString.slice(dateString.length - 1);
+            dateString += 'and ';
+        }
+        dateString += dateStrings[dateStrings.length - 1];
+
+      message.channel.send({embed: {
+        color: 3447003,
+        fields: [{
+            name: ':clock: Uptime',
+            value: 'Bot\'s uptime'
+          },
+          {
+            name: ":runner: Working in:",
+            value: `**${bot.guilds.size}** servers`
+          },
+          {
+            name: ":white_check_mark: Online for:",
+            value: dateString
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: bot.user.avatarURL,
+          text: "© NotABot"
+        }
+      }
+    });
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -242,9 +339,11 @@ bot.on("message", function(message) {
 **${settings.botPREFIX}botinfo** - Give you info about the bot.\n\
 **${settings.botPREFIX}8ball** - Ask the bot yes / no question.\n\
 **${settings.botPREFIX}weather** - Send a place in the world... x_x\n\
-**${settings.botPREFIX}invitebot** - The bot will reply with his invite URL\n\
+**${settings.botPREFIX}invitebot** - The bot will reply with his invite URL.\n\
 **${settings.botPREFIX}coinflip** - Flips a coin! (50/50)\n\
-**${settings.botPREFIX}userinfo** - Mention someone to get information about him. (TOP SECRET)`
+**${settings.botPREFIX}userinfo** - Mention someone to get information about him. (TOP SECRET)\n\
+**${settings.botPREFIX}avatar** - Mention someone to get his avatar.\n\
+**${settings.botPREFIX}uptime** - See the bot's stats.`
           }
         ],
         timestamp: new Date(),
