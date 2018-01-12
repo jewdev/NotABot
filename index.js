@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const settings = require("./settings.json")
 
 var bot = new Discord.Client();
+var embed = new Discord.RichEmbed();
 
 // Fortunes for 8ball command
 var fortunes = [
@@ -23,7 +24,7 @@ bot.on("ready", function() {
     var answers = [
         `${bot.guilds.size} Servers`,
         `${bot.users.size} Users`,
-        `${settings.botTOKEN}help`,
+        `${settings.botPREFIX}help`,
         `http://BlueMalgeran.tk`
       ];
       bot.user.setGame(
@@ -46,12 +47,30 @@ bot.on("message", function(message) {
         break;
 
         case "botinfo":
-        var embed = new Discord.RichEmbed()
-            .addField("NotABot info:", "Developed in JavaScript\n\Created by Blue Malgeran\n\If you want to contact my owner check this website http://BlueMalgeran.tk")
-            .setColor(0x00FFFF)
-            .setFooter("My owner is Blue Malgeran")
-            .setThumbnail(bot.user.avatarURL)
-        message.channel.send(embed);
+        message.channel.send({embed: {
+            color: 3447003,
+            title: "Info:",
+            description: "This is the info about the bot",
+            fields: [{
+                name: "Created by:",
+                value: "This bot created by [Blue Malgeran](http://BlueMalgeran.tk)"
+              },
+              {
+                name: "Made with:",
+                value: "This bot made with [Discord.JS](http://discord.js.org)"
+              },
+              {
+                name: "Contact me:",
+                value: "_**Blue Malgeran#5546**_"
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: bot.user.avatarURL,
+              text: "© NotABot"
+            }
+          }
+        });
         break;
 
         case "8ball":
@@ -113,7 +132,90 @@ bot.on("message", function(message) {
             'heads',
             'tails'
         ];
-      message.reply("`Coinflip: " + `${answers[~~(Math.random() * answers.length)]}` + "`");
+        message.channel.send({embed: {
+            color: 3447003,
+            title: "Coinflip:",
+            fields: [{
+                name: "Result",
+                value: "`" + `${answers[~~(Math.random() * answers.length)]}` + "`"
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: bot.user.avatarURL,
+              text: "© NotABot"
+            }
+          }
+        });
+        break;
+
+        case "userinfo":
+        let user = message.mentions.users.first();
+        if (!user) {
+            return message.reply('You must mention someone!');
+        }
+        const mentioneduser = message.mentions.users.first();
+        const joineddiscord = (mentioneduser.createdAt.getDate() + 1) + '-' + (mentioneduser.createdAt.getMonth() + 1) + '-' + mentioneduser.createdAt.getFullYear() + ' | ' + mentioneduser.createdAt.getHours() + ':' + mentioneduser.createdAt.getMinutes() + ':' + mentioneduser.createdAt.getSeconds();
+        let game;
+        if (user.presence.game === null) {
+            game = 'Not currently Playing.';
+        } else {
+            game = user.presence.game.name;
+        }
+        let messag;
+        if (user.lastMessage === null) {
+            messag = 'He didnt sent a message.';
+        } else {
+            messag = user.lastMessage;
+        }
+        let status;
+        if (user.presence.status === 'online') {
+            status = ':green_heart:';
+        } else if (user.presence.status === 'dnd') {
+            status = ':heart:';
+        } else if (user.presence.status === 'idle') {
+            status = ':yellow_heart:';
+        } else if (user.presence.status === 'offline') {
+            status = ':black_heart:';
+        }
+      // Let afk;
+      // if (user.presence.data.afk === true) {
+      //   afk = "✅"
+      // } else {
+      //   afk = "❌"
+      // }
+        let stat;
+        if (user.presence.status === 'offline') {
+            stat = 0x000000;
+        } else if (user.presence.status === 'online') {
+            stat = 0x00AA4C;
+        } else if (user.presence.status === 'dnd') {
+            stat = 0x9C0000;
+        } else if (user.presence.status === 'idle') {
+            stat = 0xF7C035;
+        }
+      message.channel.send({embed: {
+        color: 3447003,
+        author: {
+          name: `Got some info about ${user.username}`,
+          icon_url: user.displayAvatarURL
+        },
+        fields: [{
+            name: '**UserInfo:**',
+            value: `**name:** ${user.username}#${user.discriminator}\n**JoinedDiscord:** ${joineddiscord}\n**LastMessage:** ${messag}\n**Playing:** ${game}\n**Status:** ${status}\n**Bot?** ${user.bot}`
+          },
+          {
+            name: 'DiscordInfo:',
+            value: `**Discriminator:** ${user.discriminator}\n**ID:** ${user.id}\n**Username:** ${user.username}`
+          },
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: bot.user.avatarURL,
+          text: "© NotABot"
+        }
+      }
+    });
         break;
 
         case "help":
