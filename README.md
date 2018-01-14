@@ -21,5 +21,6 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
 + The command `botinfo` now have more information.
++ Changed the `bot` const to `client`, same shit
 ### Removed:
 - Nothing.
