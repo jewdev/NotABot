@@ -76,11 +76,29 @@ client.on("message", function(message) {
         break;
 
         case "8ball":
-            if (args[1]) {
-                message.channel.send(fortunes[Math.floor(Math.random() * fortunes.length)]);
-            } else {
-                message.reply("Please ask something...");
-            }
+        let question = message.content.split(' ').slice(1).join(' ');
+
+        if (!question) {
+            return message.reply('What question should I answer on?\n\**Usage:** `~8ball is Blue Malgeran is sexy af?`');
+        }
+      message.channel.send({embed: {
+        color: 3447003,
+        author: {
+          name: `8ball`,
+          icon_url: 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png'
+        },
+        fields: [{
+            name: 'Info:',
+            value: `**My Prediction:** ${fortunes[~~(Math.random() * fortunes.length)]}`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "© NotABot"
+        }
+      }
+    });
         break;
 
         case "weather":
