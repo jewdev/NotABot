@@ -1,6 +1,6 @@
 # NotABot
 A Discord bot made with Discord.JS
-# How to install
+# How to install (Windows)
 1. Download the files in the repository 
 2. Download Node.JS here: https://nodejs.org/en/
 3. Open cmd and type `npm install`
