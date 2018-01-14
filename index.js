@@ -377,6 +377,29 @@ client.on("message", function(message) {
 
         break;
 
+        case "botservers":
+        let Table = require(`cli-table`);
+        let table = new Table({
+            head: [
+                `ID`,
+                `Name`,
+                `Users`,
+                `Bots`,
+                `Total`
+            ], colWidths: [30, 50, 10, 10, 10]
+        });
+        client.guilds.map(g =>
+          table.push(
+            [g.id, g.name, g.members.filter(u => !u.user.bot).size, g.members.filter(u => u.user.bot).size, g.members.size]
+          ));
+        require(`snekfetch`)
+        .post(`https://hastebin.com/documents`)
+        .set(`Content-Type`, `application/raw`)
+        .send(table.toString())
+        .then(r =>
+           message.channel.send(`Im inside these servers! http://hastebin.com/` + r.body.key));
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -398,7 +421,8 @@ client.on("message", function(message) {
 **${settings.botPREFIX}userinfo** - Mention someone to get information about him. (TOP SECRET)\n\
 **${settings.botPREFIX}avatar** - Mention someone to get his avatar.\n\
 **${settings.botPREFIX}uptime** - See the bot's stats.\n\
-**${settings.botPREFIX}serverinfo** - See a server stats.`
+**${settings.botPREFIX}serverinfo** - See a server stats.\n\
+**${settings.botPREFIX}botservers** - See which server the bot is in.`
           }
         ],
         timestamp: new Date(),
