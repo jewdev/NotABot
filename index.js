@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
-const settings = require("./settings.json")
+const settings = require("./settings.json");
+const moment = require("moment");
 
-var bot = new Discord.Client();
+var client = new Discord.Client();
 var embed = new Discord.RichEmbed();
 
 // Fortunes for 8ball command
@@ -18,24 +19,17 @@ var fortunes = [
 ];
 
 // Functions when the bot is online
-bot.on("ready", function() {
-    console.log("Bot connected to: " + bot.user.username);
-
-    var answers = [
-        `${bot.guilds.size} Servers`,
-        `${bot.users.size} Users`,
-        `${settings.botPREFIX}help`,
-        `http://BlueMalgeran.tk`
-      ];
-      bot.user.setGame(
-        `${answers[~~(Math.random() * answers.length)]}`,
+client.on("ready", function() {
+    console.log("Bot connected to: " + client.user.username + "#" + client.user.discriminator);
+      client.user.setGame(
+        "NotABot | BETA | http://BlueMalgeran.tk",
         "https://www.twitch.tv/BlueMalgeran"
       );  
 });
 
 // Message function
-bot.on("message", function(message) {
-    if (message.author.equals(bot.user)) return;
+client.on("message", function(message) {
+    if (message.author.equals(client.user)) return;
 
     if (!message.content.startsWith(settings.botPREFIX)) return;
 
@@ -69,12 +63,12 @@ bot.on("message", function(message) {
               },
               {
                 name: "Invite the bot here",
-                value: "[:robot:](https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot&permissions=0)"
+                value: "[:robot:](https://discordapp.com/oauth2/authorize?client_id=" + client.user.id + "&scope=bot&permissions=0)"
               }
             ],
             timestamp: new Date(),
             footer: {
-              icon_url: bot.user.avatarURL,
+              icon_url: client.user.avatarURL,
               text: "© NotABot"
             }
           }
@@ -123,7 +117,7 @@ bot.on("message", function(message) {
         break;
 
         case "invitebot":
-        message.reply("Okay, you can invite me here: https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot&permissions=0");
+        message.reply("Okay, you can invite me here: https://discordapp.com/oauth2/authorize?client_id=" + client.user.id + "&scope=bot&permissions=0");
         break;
         
         // Makes a radomize answer
@@ -150,7 +144,7 @@ bot.on("message", function(message) {
             ],
             timestamp: new Date(),
             footer: {
-              icon_url: bot.user.avatarURL,
+              icon_url: client.user.avatarURL,
               text: "© NotABot"
             }
           }
@@ -219,7 +213,7 @@ bot.on("message", function(message) {
         ],
         timestamp: new Date(),
         footer: {
-          icon_url: bot.user.avatarURL,
+          icon_url: client.user.avatarURL,
           text: "© NotABot"
         }
       }
@@ -238,7 +232,7 @@ bot.on("message", function(message) {
         break;
 
         case "uptime":
-        let ms = bot.uptime;
+        let ms = client.uptime;
         let cd = 24 * 60 * 60 * 1000; // Calc days
         let ch = 60 * 60 * 1000; // Calc hours
         let cm = 60 * 1000; // Calc minutes
@@ -307,7 +301,7 @@ bot.on("message", function(message) {
           },
           {
             name: ":runner: Working in:",
-            value: `**${bot.guilds.size}** servers`
+            value: `**${client.guilds.size}** servers`
           },
           {
             name: ":white_check_mark: Online for:",
@@ -316,11 +310,53 @@ bot.on("message", function(message) {
         ],
         timestamp: new Date(),
         footer: {
-          icon_url: bot.user.avatarURL,
+          icon_url: client.user.avatarURL,
           text: "© NotABot"
         }
       }
     });
+        break;
+
+        case "serverinfo":
+        let guild = message.guild;
+        let name = guild.name;
+        let createdAt = moment(guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        let channels = guild.channels.size;
+        let owner = guild.owner.user.tag;
+        let memberCount = guild.memberCount;
+        let large = guild.large;
+        let iconUrl = guild.iconURL;
+        let region = guild.region;
+        let afk = message.guild.channels.get(guild.afkChannelID) === undefined ? 'None' : message.guild.channels.get(guild.afkChannelID).name;
+
+            message.channel.send({embed: {
+                color: 3447003,
+                author: {
+                  name: guild.name,
+                  icon_url: guild.displayAvatarURL
+                },
+                title: "Server Information",
+                fields: [{
+                    name: "Channels",
+                    value: `**Channel Count:** ${channels}\n**AFK Channel:** ${afk}`
+                  },
+                  {
+                    name: "Members",
+                    value: `**Member Count:** ${memberCount}\n**Owner:** ${owner}\n**Owner ID:** ${guild.owner.id}`
+                  },
+                  {
+                    name: "More",
+                    value: `**Created at:** ${createdAt}\n**Large Guild?:** ${large ? 'Yes' : 'No'}\n**Region:** ${region}`
+                  }
+                ],
+                timestamp: new Date(),
+                footer: {
+                  icon_url: client.user.avatarURL,
+                  text: "© NotABot"
+                }
+              }
+            });
+
         break;
 
         case "help":
@@ -329,8 +365,8 @@ bot.on("message", function(message) {
     message.author.send({embed: {
         color: 3447003,
         author: {
-          name: bot.user.username,
-          icon_url: bot.user.avatarURL
+          name: client.user.username,
+          icon_url: client.user.avatarURL
         },
         title: "Bot's commands",
         fields: [{
@@ -343,12 +379,13 @@ bot.on("message", function(message) {
 **${settings.botPREFIX}coinflip** - Flips a coin! (50/50)\n\
 **${settings.botPREFIX}userinfo** - Mention someone to get information about him. (TOP SECRET)\n\
 **${settings.botPREFIX}avatar** - Mention someone to get his avatar.\n\
-**${settings.botPREFIX}uptime** - See the bot's stats.`
+**${settings.botPREFIX}uptime** - See the bot's stats.\n\
+**${settings.botPREFIX}serverinfo** - See a server stats.`
           }
         ],
         timestamp: new Date(),
         footer: {
-          icon_url: bot.user.avatarURL,
+          icon_url: client.user.avatarURL,
           text: "© NotABot"
         }
       }
@@ -361,4 +398,4 @@ bot.on("message", function(message) {
 });
 
 // Bot's token
-bot.login(settings.botTOKEN);
+client.login(settings.botTOKEN);
