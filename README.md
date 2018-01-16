@@ -22,6 +22,11 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Changed the `botinfo` command for an embed message.
 + The command `botinfo` now have more information.
 + Changed the `bot` const to `client`, same shit
+<<<<<<< HEAD
 + `8ball` command has been changed to embed message.
+=======
++ I've changed the bot's game to some good new shit :)
++ The `8ball` command has been changed to a embed message.
+>>>>>>> 4c8456d429d47b19f99861f299fea1d656381b43
 ### Removed:
 - Nothing.
