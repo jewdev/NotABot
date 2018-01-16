@@ -21,6 +21,7 @@ var fortunes = [
 // Functions when the bot is online
 client.on("ready", function() {
     console.log("Bot connected to: " + client.user.username + "#" + client.user.discriminator);
+    console.log("The bot is in " + client.guilds.size + " servers.");
       client.user.setGame(
         "NotABot | BETA | http://BlueMalgeran.tk",
         "https://www.twitch.tv/BlueMalgeran"
@@ -89,7 +90,7 @@ client.on("message", function(message) {
         },
         fields: [{
             name: 'Info:',
-            value: `**My Prediction:** ${fortunes[~~(Math.random() * fortunes.length)]}`
+            value: `**My answer:** ${fortunes[~~(Math.random() * fortunes.length)]}`
           }
         ],
         timestamp: new Date(),
@@ -537,6 +538,57 @@ client.on("message", function(message) {
         });
         break;
 
+        /*
+        DON'T TOUCH THE BUG REPORT COMMAND!!!!!!
+        THIS COMMAND WILL REPORT ME ON A BUG!
+        */
+
+        case "bugreport":
+        const cooldown = new Set();
+        let bugserverid = message.guild.id;
+        let bugreportargs = message.content.split(' ').slice(1).join(' ');
+    
+        if (cooldown.has(message.author.id && message.guild.id)) {
+            return message.reply('**[COOLDOWN]** Bugreport command has **5 Minutes** Cooldown!');
+        }
+        if (bugreportargs.length < 1) {
+            return message.reply('You must supply me full reportation!');
+        }
+        cooldown.add(message.author.id && message.guild.id);
+    
+        setTimeout(() => {
+            cooldown.delete(message.author.id && message.guild.id);
+        }, 300000);
+        let bugguild = message.guild;
+        const cnl = client.channels.get('402881056312655882')
+        message.reply('Hey we got your report , we will reply soon as possible here is the full reportation:');
+        const bugembed2 = new Discord.RichEmbed()
+      .setAuthor(`Report from ${message.author.tag}`, message.author.displayAvatarURL)
+      .addField('Report:', `**Report's Author:** ${message.author.tag}\n**Server:** ${bugguild.name}\n**Server ID:** ${bugserverid}\n**Full report:** ${bugreportargs}`)
+      .setThumbnail(message.author.displayAvatarURL)
+      .setFooter(`${moment().format('MMMM Do YYYY, h:mm:ss a')}`)
+      .setColor(16711728);
+        message.channel.send({embed: bugembed2});
+        cnl.send({embed: {
+            color: 16711728,
+            author: {
+              name: message.author.tag,
+              icon_url: message.author.displayAvatarURL
+            },
+            fields: [{
+                name: 'Report:',
+                value: `**Report's Author:** ${message.author.tag}\n**Server:** ${bugguild.name}\n**Server ID:** ${bugserverid}\n**Full report:** ${bugreportargs}`
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: client.user.avatarURL,
+              text: "© NotABot"
+            }
+          }
+        });
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -562,7 +614,8 @@ client.on("message", function(message) {
 **${settings.botPREFIX}botservers** - See which server the bot is in.\n\
 **${settings.botPREFIX}botping** - How much ping the bot has?\n\
 **${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!) don't even try :(\n\
-**${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!) don't even try :( 2.0`
+**${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!) don't even try :( v2.0\n\
+**${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.`
           }
         ],
         timestamp: new Date(),
