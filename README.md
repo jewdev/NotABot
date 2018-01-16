@@ -11,22 +11,22 @@ A Discord bot made with Discord.JS
 # Note:
 This bot is BETA so the bot don't have too many commands, just the cool commands.
 And there is a copyright on this bot, so if someone takes credit on this bot I can sue him.
-# • Changelog
+# Changelog
 ### Added:
 + Added `coinflip` command. (50/50)
 + Added `userinfo` command.
 + Added `avatar` command.
 + Added `uptime` command.
++ Added new moderation command! `ban` command.
++ Added new moderation command! `kick` command.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
 + The command `botinfo` now have more information.
 + Changed the `bot` const to `client`, same shit
-<<<<<<< HEAD
 + `8ball` command has been changed to embed message.
-=======
 + I've changed the bot's game to some good new shit :)
 + The `8ball` command has been changed to a embed message.
->>>>>>> 4c8456d429d47b19f99861f299fea1d656381b43
++ Improved the `8ball` command.
 ### Removed:
 - Nothing.
