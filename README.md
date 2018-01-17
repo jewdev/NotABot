@@ -20,6 +20,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new moderation command! `ban` command.
 + Added new moderation command! `kick` command.
 + Added new command! `bugreport` send me a message of a bug or something... (DON'T TOUCH THE COMMAND!!!!!!)
++ Added new command! `mute` muted a user in the chat by role.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -33,5 +34,6 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 - Nothing.
 ### Plans:
 + Unban command.
++ ~~Mute command. ~~
 + Bot's owner commands. (Avatar, username ETC.)
 + Some fun commands!
