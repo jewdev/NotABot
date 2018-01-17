@@ -589,6 +589,86 @@ client.on("message", function(message) {
         });
         break;
 
+        case "mute":
+        if (!message.guild.member(message.author).hasPermission('MUTE_MEMBERS')) {
+            message.channel.send(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`');
+            return;
+        }
+    
+        if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) {
+            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`').catch(e => logger.error(e));
+        }
+        const msmute = require('ms');
+        let reasonMute = message.content.split(' ').slice(3).join(' ');
+        let timeMute = message.content.split(' ')[2];
+        let guildMute = message.guild;
+      // Let adminRoleMute = guild.roles.find("name", "TOA");
+        let memberMute = message.guild.member;
+        let modlogMute = message.guild.channels.find('name', 'mod-log');
+        let userMute = message.mentions.users.first();
+        let muteRoleMute = client.guilds.get(message.guild.id).roles.find('name', 'muted');
+        if (!modlogMute) {
+            return message.reply('I need a text channel named `mod-log` to print my ban/kick logs in, please create one');
+        }
+    
+        if (!muteRoleMute) {
+            return message.reply('`Please create a role called "muted"`');
+        }
+    
+        if (message.mentions.users.size < 1) {
+            return message.reply('You need to mention someone to Mute him!.');
+        }
+        if (message.author.id === userMute.id) {
+            return message.reply('You cant punish yourself :wink:');
+        }
+        if (!timeMute) {
+            return message.reply('specify the time for the mute!**Usage:**`~mute [@mention] [1m] [example]`');
+        }
+        if (!timeMute.match(/[1-60][s,m,h,d,w]/g)) {
+            return message.reply('I need a valid time ! look at the Usage! right here: **Usage:**`~mute [@mention] [1m] [example]`');
+        }
+        if (!reasonMute) {
+            return message.reply('You must give me a reason for Mute **Usage:**`~mute [@mention] [15m] [example]`');
+        }
+        if (reasonMute.time < 1) {
+            return message.reply('TIME?').then(message => message.delete(2000));
+        }
+        if (reasonMute.length < 1) {
+            return message.reply('You must give me a reason for Mute');
+        }
+        message.guild.member(userMute).addRole(muteRoleMute).catch(e => logger.error(e));
+    
+        setTimeout(() => {
+            message.guild.member(userMute).removeRole(muteRoleMute).catch(e => logger.error(e));
+        }, msmute(timeMute));
+        message.guild.channels.filter(textchannel => textchannel.type === 'text').forEach(cnl => {
+            cnl.overwritePermissions(muteRoleMute, {
+                SEND_MESSAGES: false
+            });
+        });
+
+        message.reply("This user has been muted.");
+
+        modlogMute.send({embed: {
+            color: 16745560,
+            author: {
+              name: client.user.username,
+              icon_url: client.user.avatarURL
+            },
+            fields: [{
+                name: 'Mute',
+                value: `**Muted:**${userMute.username}#${userMute.discriminator}\n**Moderator:** ${message.author.username}\n**Duration:** ${msmute(msmute(timeMute), {long: true})}\n**Reason:** ${reasonMute}`
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: client.user.avatarURL,
+              text: "© NotABot"
+            }
+          }
+        });
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -613,8 +693,9 @@ client.on("message", function(message) {
 **${settings.botPREFIX}serverinfo** - See a server stats.\n\
 **${settings.botPREFIX}botservers** - See which server the bot is in.\n\
 **${settings.botPREFIX}botping** - How much ping the bot has?\n\
-**${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!) don't even try :(\n\
-**${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!) don't even try :( v2.0\n\
+**${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!)\n\
+**${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
+**${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
 **${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.`
           }
         ],
