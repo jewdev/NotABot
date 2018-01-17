@@ -34,6 +34,6 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 - Nothing.
 ### Plans:
 + Unban command.
-+ ~~Mute command. ~~
++ ~~Mute command.~~
 + Bot's owner commands. (Avatar, username ETC.)
 + Some fun commands!
