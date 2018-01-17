@@ -669,6 +669,27 @@ client.on("message", function(message) {
         });
         break;
 
+        case "unmute":
+        let guildUnmute = message.guild;
+        let argsUnmute = message.content.split(' ').slice(1);
+        let argresultUnmute = args.join(' ');
+        let reasonUnmute = args;
+        if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES')) {
+            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`')
+        }
+        if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) {
+            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`')
+        }
+        let userUnmute = message.mentions.users.first();
+        let muteRoleUnmute = client.guilds.get(message.guild.id).roles.find('name', 'muted');
+        if (message.mentions.users.size < 1) {
+            return message.reply('You need to mention someone to unmute him!.');
+        }
+        message.guild.member(userUnmute).removeRole(muteRoleUnmute).then(() => {
+            message.reply(`You've succesfully unmuted ${userUnmute}`);
+        });
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -696,6 +717,7 @@ client.on("message", function(message) {
 **${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!)\n\
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
+**${settings.botPREFIX}unmute** - Unmutes a user and removed the **muted** role from him (Moderation only!)\n\
 **${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.`
           }
         ],
