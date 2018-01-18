@@ -337,35 +337,35 @@ client.on("message", function(message) {
         break;
 
         case "serverinfo":
-        let guildmessage = message.guild;
-        let name = guild.name;
-        let createdAt = moment(guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-        let channels = guild.channels.size;
-        let owner = guild.owner.user.tag;
-        let memberCount = guild.memberCount;
-        let large = guild.large;
-        let iconUrl = guild.iconURL;
-        let region = guild.region;
-        let afk = message.guild.channels.get(guild.afkChannelID) === undefined ? 'None' : message.guild.channels.get(guild.afkChannelID).name;
+        let guildmessageServerInfo = message.guild;
+        let nameServerInfo = message.guild.name;
+        let createdAtServerInfo = moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        let channelsServerInfo = message.guild.channels.size;
+        let ownerServerInfo = message.guild.owner.user.tag;
+        let memberCountServerInfo = message.guild.memberCount;
+        let largeServerInfo = message.guild.large;
+        let iconUrlServerInfo = message.guild.iconURL;
+        let regionServerInfo = message.guild.region;
+        let afkServerInfo = message.guild.channels.get(message.guild.afkChannelID) === undefined ? 'None' : message.guild.channels.get(guild.afkChannelID).name;
 
             message.channel.send({embed: {
                 color: 3447003,
                 author: {
-                  name: guild.name,
-                  icon_url: guild.displayAvatarURL
+                  name: message.guild.name,
+                  icon_url: message.guild.displayAvatarURL
                 },
                 title: "Server Information",
                 fields: [{
                     name: "Channels",
-                    value: `**Channel Count:** ${channels}\n**AFK Channel:** ${afk}`
+                    value: `**Channel Count:** ${channelsServerInfo}\n**AFK Channel:** ${afkServerInfo}`
                   },
                   {
                     name: "Members",
-                    value: `**Member Count:** ${memberCount}\n**Owner:** ${owner}\n**Owner ID:** ${guild.owner.id}`
+                    value: `**Member Count:** ${memberCountServerInfo}\n**Owner:** ${ownerServerInfo}\n**Owner ID:** ${message.guild.owner.id}`
                   },
                   {
                     name: "More",
-                    value: `**Created at:** ${createdAt}\n**Large Guild?:** ${large ? 'Yes' : 'No'}\n**Region:** ${region}`
+                    value: `**Created at:** ${createdAtServerInfo}\n**Large Guild?:** ${largeServerInfo ? 'Yes' : 'No'}\n**Region:** ${regionServerInfo}`
                   }
                 ],
                 timestamp: new Date(),
@@ -431,11 +431,11 @@ client.on("message", function(message) {
         let usermention = message.mentions.users.first();
     
         if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) {
-            return message.reply(':lock: **You** need `BAN_MEMBERS` Permissions to execute `mute`')
+            return message.reply(':lock: **You** need `BAN_MEMBERS` Permissions to execute `ban`')
         }
 
         if (!message.guild.member(client.user).hasPermission('BAN_MEMBERS')) {
-            return message.reply(':lock: **I** need `BAN_MEMBERS` Permissions to execute `mute`')
+            return message.reply(':lock: **I** need `BAN_MEMBERS` Permissions to execute `ban`')
         }
 
         if (!modlog) {
@@ -717,7 +717,7 @@ client.on("message", function(message) {
 **${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!)\n\
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
-**${settings.botPREFIX}unmute** - Unmutes a user and removed the **muted** role from him (Moderation only!)\n\
+**${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
 **${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.`
           }
         ],
