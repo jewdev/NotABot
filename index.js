@@ -746,7 +746,8 @@ client.on("message", function(message) {
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
 **${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
-**${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.`
+**${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.\n\
+**${settings.botPREFIX}quote** - Sends a quote by some smart guys.`
           }
         ],
         timestamp: new Date(),
