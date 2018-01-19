@@ -24,7 +24,6 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new command!`unmute` unmutes a user in the chat by removed the muted role.
 + Added new command! `serverinfo` shows some cool info about the server.
 + Added new command! `quote` sends a quote made by smart guys. (No fortunes included.)
-+ Added new setting (settings.json)! `ownerID` has been created for some future commands. (I'm working on it!)
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
