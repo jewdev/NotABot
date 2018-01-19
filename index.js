@@ -493,10 +493,10 @@ client.on("message", function(message) {
 
         case "kick":
         if (!message.guild.member(message.author).hasPermission('KICK_MEMBERS')) {
-            return message.reply(':lock: You dont have permissions for that').catch(e => logger.error(e));
+            return message.reply(':lock: You dont have permissions for that')
         }
         if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) {
-            return message.reply(':lock: **I** need `KICK_MEMBERS` Permissions to execute `mute`').catch(e => logger.error(e));
+            return message.reply(':lock: **I** need `KICK_MEMBERS` Permissions to execute `mute`')
         }
         let usermentionkick = message.mentions.users.first();
         let reasonkick = message.content.split(' ').slice(2).join(' ');
@@ -596,7 +596,7 @@ client.on("message", function(message) {
         }
     
         if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) {
-            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`').catch(e => logger.error(e));
+            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`')
         }
         const msmute = require('ms');
         let reasonMute = message.content.split(' ').slice(3).join(' ');
@@ -636,10 +636,10 @@ client.on("message", function(message) {
         if (reasonMute.length < 1) {
             return message.reply('You must give me a reason for Mute');
         }
-        message.guild.member(userMute).addRole(muteRoleMute).catch(e => logger.error(e));
+        message.guild.member(userMute).addRole(muteRoleMute)
     
         setTimeout(() => {
-            message.guild.member(userMute).removeRole(muteRoleMute).catch(e => logger.error(e));
+            message.guild.member(userMute).removeRole(muteRoleMute)
         }, msmute(timeMute));
         message.guild.channels.filter(textchannel => textchannel.type === 'text').forEach(cnl => {
             cnl.overwritePermissions(muteRoleMute, {
@@ -687,6 +687,34 @@ client.on("message", function(message) {
         }
         message.guild.member(userUnmute).removeRole(muteRoleUnmute).then(() => {
             message.reply(`You've succesfully unmuted ${userUnmute}`);
+        });
+        break;
+
+        case "quote":
+        const fetchquote = require('snekfetch');
+        fetchquote.get('http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en').then(quote => {
+            if (quote.body.quoteText === undefined) {
+                return message.reply('Something is messing up the API try again please!');
+            }
+
+            message.channel.send({embed: {
+                color: 3447003,
+                author: {
+                  name: 'A smart guy said once:',
+                  icon_url: 'http://pngimages.net/sites/default/files/right-double-quotation-mark-png-image-80280.png'
+                },
+                fields: [{
+                    name: "Quote with source",
+                    value: `"${quote.body.quoteText}"\n**Author:** ${quote.body.quoteAuthor}\n**Source:** ${quote.body.quoteLink}`
+                  }
+                ],
+                timestamp: new Date(),
+                footer: {
+                  icon_url: client.user.avatarURL,
+                  text: "© NotABot"
+                }
+            }
+        })
         });
         break;
 
