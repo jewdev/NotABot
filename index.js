@@ -718,6 +718,20 @@ client.on("message", function(message) {
         });
         break;
 
+        case "notice":
+        var hugs = [
+            "`＼(^o^)／`",
+            "`d=(´▽｀)=b`",
+            "`⊂((・▽・))⊃`",
+            "`⊂( ◜◒◝ )⊃`",
+            "`⊂（♡⌂♡）⊃`",
+            "`⊂(◉‿◉)つ`"
+        ];
+
+        case "8ball":
+        message.reply(`${hugs[~~(Math.random() * hugs.length)]}`);
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -747,7 +761,8 @@ client.on("message", function(message) {
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
 **${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
 **${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.\n\
-**${settings.botPREFIX}quote** - Sends a quote by some smart guys.`
+**${settings.botPREFIX}quote** - Sends a quote by some smart guys.\n\
+**${settings.botPREFIX}notice** - The bot will hug you`
           }
         ],
         timestamp: new Date(),
