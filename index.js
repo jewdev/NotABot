@@ -466,6 +466,8 @@ client.on("message", function(message) {
             return message.reply('This member is above me in the `role chain` Can\'t ban them')
         }
 
+        message.reply("This user has been banned form the server.");
+
         usermention.send(`You've just got banned from ${guild.name}  \n State reason: **${reason}** \n **Disclamer**: If the ban is not timed and Permanent you may not appeal the **BAN**!`)
         message.guild.ban(usermention, 7);
         setTimeout(() => {
@@ -727,8 +729,6 @@ client.on("message", function(message) {
             "`⊂（♡⌂♡）⊃`",
             "`⊂(◉‿◉)つ`"
         ];
-
-        case "8ball":
         message.reply(`${hugs[~~(Math.random() * hugs.length)]}`);
         break;
 
