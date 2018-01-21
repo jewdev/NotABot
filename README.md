@@ -26,6 +26,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new command! `quote` sends a quote made by smart guys. (No fortunes included.)
 + Added new (useless) command! `notice` the bot will hug you.
 + Added new setting to `settings.json`! Setting: `OwnerID` has been created for some future commands.
++ Added new moderation command! `softban` kicks a user and removes his messages.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
