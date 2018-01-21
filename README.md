@@ -43,5 +43,6 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + ~~Mute command.~~
 + ~~Unmute command.~~
 + ~~Server info.~~
++ ~~Softban command.~~
 + Bot's owner commands. (Avatar, username ETC.)
 + Some fun commands!
