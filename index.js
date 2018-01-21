@@ -732,6 +732,56 @@ client.on("message", function(message) {
         message.reply(`${hugs[~~(Math.random() * hugs.length)]}`);
         break;
 
+        case "softban":
+        let reasonSoftban = message.content.split(' ').slice(3).join(' ');
+        let timeSoftban = message.content.split(' ')[2];
+        let guildSoftban = message.guild;
+        let modlogSoftban = message.guild.channels.find('name', 'mod-log');
+        let userSoftban = message.mentions.users.first();
+        if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) {
+            return message.reply(':lock: You need to have `BAN_MEMBERS` Permission to execute `SoftBan`');
+        }
+        if (!message.guild.member(client.user).hasPermission('BAN_MEMBERS')) {
+            return message.reply(':lock: I need to have `BAN_MEMBERS` Permission to execute `SoftBan`');
+        }
+        if (!modlogSoftban) {
+            return message.reply('I need a text channel named `mod-log` to print my ban/kick logs in, please create one');
+        }
+        if (message.author.id === userSoftban.id) {
+            return message.reply('You cant punish yourself :wink:');
+        }
+        if (message.mentions.users.size < 1) {
+            return message.reply('You need to mention someone to SoftBan him!');
+        }
+        if (!reasonSoftban) {
+            return message.reply(`You must give me a reason for the ban **Usage:**\`~softban [@mention] [example]\``);
+        }
+        userSoftban.send(`You've just got softbanned from ${guildSoftban.name}  \n State reason: **${reasonSoftban}** \n **Disclamer**: In a softban you can come back straight away, we just got your messages deleted`);
+        message.guild.ban(userSoftban, 2);
+        setTimeout(() => {
+            message.guild.unban(userSoftban.id);
+        }, 0);
+
+        modlogSoftban.send({embed: {
+            color: 0x18FE26,
+            author: {
+              name: client.user.username,
+              icon_url: client.user.avatarURL
+            },
+            fields: [{
+                name: "Softban:",
+                value: `**Softbanned:** ${userSoftban.username}#${userSoftban.discriminator}\n**Moderator:** ${message.author.username}\n**Reason:** ${reasonSoftban}`
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: client.user.avatarURL,
+              text: "© NotABot"
+            }
+          }
+        });
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -760,6 +810,7 @@ client.on("message", function(message) {
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
 **${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
+**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)\n\
 **${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.\n\
 **${settings.botPREFIX}quote** - Sends a quote by some smart guys.\n\
 **${settings.botPREFIX}notice** - The bot will hug you`
