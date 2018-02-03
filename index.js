@@ -346,7 +346,7 @@ client.on("message", function(message) {
         let largeServerInfo = message.guild.large;
         let iconUrlServerInfo = message.guild.iconURL;
         let regionServerInfo = message.guild.region;
-        let afkServerInfo = message.guild.channels.get(message.guild.afkChannelID) === undefined ? 'None' : message.guild.channels.get(guild.afkChannelID).name;
+        let afkServerInfo = message.guild.channels.get(message.guild.afkChannelID) === undefined ? 'None' : message.guild.channels.get(guildmessageServerInfo.afkChannelID).name;
 
             message.channel.send({embed: {
                 color: 3447003,
@@ -793,7 +793,7 @@ client.on("message", function(message) {
         },
         title: "Bot's commands",
         fields: [{
-            name: "Commands",
+            name: "Page 1",
             value: `**${settings.botPREFIX}ping** - The bot will reply you with P O N G.\n\
 **${settings.botPREFIX}botinfo** - Give you info about the bot.\n\
 **${settings.botPREFIX}8ball** - Ask the bot a (yes / no) question.\n\
@@ -806,14 +806,33 @@ client.on("message", function(message) {
 **${settings.botPREFIX}serverinfo** - See a server stats.\n\
 **${settings.botPREFIX}botservers** - See which server the bot is in.\n\
 **${settings.botPREFIX}botping** - How much ping the bot has?\n\
-**${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!)\n\
-**${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
-**${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
-**${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
-**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)\n\
 **${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.\n\
 **${settings.botPREFIX}quote** - Sends a quote by some smart guys.\n\
 **${settings.botPREFIX}notice** - The bot will hug you`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "© NotABot"
+        }
+      }
+    });
+
+    message.author.send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "Bot's commands",
+        fields: [{
+            name: "Page 2 (Moderation)",
+            value: `**${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!)\n\
+**${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
+**${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
+**${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
+**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)`
           }
         ],
         timestamp: new Date(),
