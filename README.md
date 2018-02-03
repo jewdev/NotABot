@@ -10,7 +10,7 @@ A Discord bot made with Discord.JS
 `$ git clone https://github.com/BlueMalgeran/NotABot`
 # Note:
 This bot is BETA so the bot don't have too many commands, just the cool commands.
-And there is a copyright on this bot, so if someone takes credit on this bot I can sue him.
+And there is a copyright on this bot, so if someone takes credit on this bot I can prosecute him.
 # Changelog
 ### Added:
 + Added `coinflip` command. (50/50)
