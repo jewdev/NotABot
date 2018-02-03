@@ -36,6 +36,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + I've changed the bot's game to some good new shit :)
 + The `8ball` command has been changed to a embed message.
 + Improved the `8ball` command.
++ Added new page to `help` command! (Moderation page)
 ### Removed:
 - Nothing.
 ### Plans:
