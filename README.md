@@ -39,7 +39,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new page to `help` command! (Moderation page)
 ### Removed:
 - Nothing.
-### Plans:
+### TODO:
 + Unban command.
 + ~~Mute command.~~
 + ~~Unmute command.~~
