@@ -40,6 +40,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 ### Removed:
 - Nothing.
 ### TODO:
++ ~~watch porn~~
 + Unban command.
 + ~~Mute command.~~
 + ~~Unmute command.~~
