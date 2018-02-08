@@ -27,6 +27,8 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new (useless) command! `notice` the bot will hug you.
 + Added new setting to `settings.json`! Setting: `OwnerID` has been created for some future commands.
 + Added new moderation command! `softban` kicks a user and removes his messages.
++ Added new owner commands! `botname and botavatar` Changed the avatar and the name of the bot
++ Added new command for me! `todo` Shows my to do list.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -36,9 +38,9 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + I've changed the bot's game to some good new shit :)
 + The `8ball` command has been changed to a embed message.
 + Improved the `8ball` command.
-+ Added new page to `help` command! (Moderation page)
++ Added new help commands! `help, modhelp, ownerhelp and bluehelp` It shows some commands for some people
 ### Removed:
-- Nothing.
+- The spammy messages that was in the `help` command
 ### TODO:
 + ~~watch porn~~
 + Unban command.
@@ -46,5 +48,5 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + ~~Unmute command.~~
 + ~~Server info.~~
 + ~~Softban command.~~
-+ Bot's owner commands. (Avatar, username ETC.)
++ ~~Bot's owner commands. (Avatar, username ETC.)~~
 + Some fun commands!
