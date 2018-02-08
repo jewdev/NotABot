@@ -545,7 +545,7 @@ client.on("message", function(message) {
         THIS COMMAND WILL REPORT ME ON A BUG!
         */
 
-        case "bugreport":
+        /*case "bugreport":
         const cooldown = new Set();
         let bugserverid = message.guild.id;
         let bugreportargs = message.content.split(' ').slice(1).join(' ');
@@ -589,7 +589,7 @@ client.on("message", function(message) {
             }
           }
         });
-        break;
+        break;*/
 
         case "mute":
         if (!message.guild.member(message.author).hasPermission('MUTE_MEMBERS')) {
