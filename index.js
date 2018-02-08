@@ -782,7 +782,50 @@ client.on("message", function(message) {
         });
         break;
 
+        case "todo":
+        if (message.author.id == '153478211207036929') {
+            return message.channel.send(`**Unban command.**\n
+**Bot's owner commands.**\n
+**Some fun commands.**\n
+~~Mute command~~\n
+~~Unmute command~~\n
+~~Server info~~\n
+~~Softban command\n~~
+**~~watch porn man~~**`);
+        } else {
+            message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
+        }
+        break;
+
+        case "botname":
+        const botusername = message.content.split(' ').slice(1).join(' ');
+
+        if (message.author.id == settings.ownerID) {
+            client.user.setUsername(botusername);
+            message.reply('Done. :ok_hand:');
+        } else {
+            message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
+        }
+        break;
+
+        case "botavatar":
+        const botavatar = message.content.split(' ').slice(1).join(' ');
+        var request = require("request").defaults({ "encoding" : null });
+
+        if (message.author.id == settings.ownerID) {
+request(botavatar, function (err, res, body) {
+    if (!err && res.statusCode === 200) {
+        var data = "data:" + res.headers["content-type"] + ";base64," + new Buffer(body).toString("base64");
+        client.user.setAvatar(botavatar).catch((error) => { message.channel.send('Beep boop, something went wrong. Check the console to see the error.'); console.log('Error on setavatar command:', error); });
+
+        message.channel.send('Done. :ok_hand:');
     }
+});
+        } else {
+            message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
+        }
+        break;
+
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
@@ -794,8 +837,12 @@ client.on("message", function(message) {
         },
         title: "Bot's commands",
         fields: [{
-            name: "Page 1",
-            value: `**${settings.botPREFIX}ping** - The bot will reply you with P O N G.\n\
+            name: "Regular commands",
+            value: `**${settings.botPREFIX}help** - This message!\n\
+**${settings.botPREFIX}modhelp** - Sends commands for mods.\n\
+**${settings.botPREFIX}ownerhelp** - Bot's owner commands.\n\
+**${settings.botPREFIX}bluehelp** - S E C R E T\n\
+**${settings.botPREFIX}ping** - The bot will reply you with P O N G.\n\
 **${settings.botPREFIX}botinfo** - Give you info about the bot.\n\
 **${settings.botPREFIX}8ball** - Ask the bot a (yes / no) question.\n\
 **${settings.botPREFIX}weather** - Send a place in the world... x_x\n\
@@ -819,6 +866,10 @@ client.on("message", function(message) {
         }
       }
     });
+    break;
+
+    case "modhelp":
+    message.reply("Please check your direct messages :inbox_tray: (Moderation commands.)");
 
     message.author.send({embed: {
         color: 3447003,
@@ -828,7 +879,7 @@ client.on("message", function(message) {
         },
         title: "Bot's commands",
         fields: [{
-            name: "Page 2 (Moderation)",
+            name: "Moderation commands",
             value: `**${settings.botPREFIX}ban** - Bans a user from your server! (Moderators only!)\n\
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
@@ -843,7 +894,65 @@ client.on("message", function(message) {
         }
       }
     });
-        break;
+    break;
+
+    case "ownerhelp":
+    if (message.author.id == settings.ownerID) {
+        message.reply("Please check your direct messages :inbox_tray: (Owner commands.)");
+        
+        message.author.send({embed: {
+            color: 3447003,
+            author: {
+              name: client.user.username,
+              icon_url: client.user.avatarURL
+            },
+            title: "Bot's commands",
+            fields: [{
+                name: "Bot's owner commands",
+                value: `**${settings.botPREFIX}botname** - Changes the bot's username.\n\
+**${settings.botPREFIX}botavatar** - Changes the bot's avatar.`
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: client.user.avatarURL,
+              text: "© NotABot"
+            }
+          }
+        });
+    } else {
+        message.channel.send(`\`📛\` Only the owner of the bot can use this command.`);
+    }
+    break;
+
+    case "bluehelp":
+    if (message.author.id == '153478211207036929') {
+        message.reply('Hello there my lord! Check your DM :wink:');
+
+        message.author.send({embed: {
+            color: 3447003,
+            author: {
+              name: client.user.username,
+              icon_url: client.user.avatarURL
+            },
+            title: "Bot's commands",
+            fields: [{
+                name: "Blue Malgeran's commands",
+                value: `**${settings.botPREFIX}todo** - Shows Blue Malgeran's TODO list.`
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: client.user.avatarURL,
+              text: "© NotABot"
+            }
+          }
+        });
+    } else {
+        message.channel.send(`\`📛\` You're not allowed to execute this command, only my lord can use this command!\n\
+        \`Lord: Blue Malgeran#5546\``);
+    }
+    break;
 
         default:
             message.channel.send("Invalid command.");
