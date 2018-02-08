@@ -782,6 +782,7 @@ client.on("message", function(message) {
         });
         break;
 
+    }
         case "help":
         message.reply("Please check your direct messages :inbox_tray:");
 
