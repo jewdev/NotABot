@@ -29,7 +29,7 @@ client.on("ready", function() {
 });
 
 // Message function
-client.on("message", function(message) {
+client.on("message", function(message, userID, channelID, user, event) {
     if (message.author.equals(client.user)) return;
 
     if (!message.content.startsWith(settings.botPREFIX)) return;
@@ -139,17 +139,8 @@ client.on("message", function(message) {
         message.reply("Okay, you can invite me here: https://discordapp.com/oauth2/authorize?client_id=" + client.user.id + "&scope=bot&permissions=0");
         break;
         
-        // Makes a radomize answer
         case "coinflip":
         let answers = [
-            'heads',
-            'tails',
-            'heads',
-            'tails',
-            'heads',
-            'tails',
-            'heads',
-            'tails',
             'heads',
             'tails'
         ];
@@ -540,56 +531,8 @@ client.on("message", function(message) {
         });
         break;
 
-        /*
-        DON'T TOUCH THE BUG REPORT COMMAND!!!!!!
-        THIS COMMAND WILL REPORT ME ON A BUG!
-        */
-
-        /*case "bugreport":
-        const cooldown = new Set();
-        let bugserverid = message.guild.id;
-        let bugreportargs = message.content.split(' ').slice(1).join(' ');
-    
-        if (cooldown.has(message.author.id && message.guild.id)) {
-            return message.reply('**[COOLDOWN]** Bugreport command has **5 Minutes** Cooldown!');
-        }
-        if (bugreportargs.length < 1) {
-            return message.reply('You must supply me full reportation!');
-        }
-        cooldown.add(message.author.id && message.guild.id);
-    
-        setTimeout(() => {
-            cooldown.delete(message.author.id && message.guild.id);
-        }, 300000);
-        let bugguild = message.guild;
-        const cnl = client.channels.get('402881056312655882')
-        message.reply('Hey we got your report , we will reply soon as possible here is the full reportation:');
-        const bugembed2 = new Discord.RichEmbed()
-      .setAuthor(`Report from ${message.author.tag}`, message.author.displayAvatarURL)
-      .addField('Report:', `**Report's Author:** ${message.author.tag}\n**Server:** ${bugguild.name}\n**Server ID:** ${bugserverid}\n**Full report:** ${bugreportargs}`)
-      .setThumbnail(message.author.displayAvatarURL)
-      .setFooter(`${moment().format('MMMM Do YYYY, h:mm:ss a')}`)
-      .setColor(16711728);
-        message.channel.send({embed: bugembed2});
-        cnl.send({embed: {
-            color: 16711728,
-            author: {
-              name: message.author.tag,
-              icon_url: message.author.displayAvatarURL
-            },
-            fields: [{
-                name: 'Report:',
-                value: `**Report's Author:** ${message.author.tag}\n**Server:** ${bugguild.name}\n**Server ID:** ${bugserverid}\n**Full report:** ${bugreportargs}`
-              }
-            ],
-            timestamp: new Date(),
-            footer: {
-              icon_url: client.user.avatarURL,
-              text: "© NotABot"
-            }
-          }
-        });
-        break;*/
+        message.channel.send('This command is disabled by `Blue Malgeran#5546`');
+        break;
 
         case "mute":
         if (!message.guild.member(message.author).hasPermission('MUTE_MEMBERS')) {
@@ -826,22 +769,63 @@ request(botavatar, function (err, res, body) {
         }
         break;
 
-        case "help":
-        message.reply("Please check your direct messages :inbox_tray:");
+        case "botnick":
+        const botnickname = message.content.split(' ').slice(1).join(' ');
 
-    message.author.send({embed: {
-        color: 3447003,
-        author: {
-          name: client.user.username,
-          icon_url: client.user.avatarURL
-        },
-        title: "Bot's commands",
-        fields: [{
-            name: "Regular commands",
-            value: `**${settings.botPREFIX}help** - This message!\n\
-**${settings.botPREFIX}modhelp** - Sends commands for mods.\n\
-**${settings.botPREFIX}ownerhelp** - Bot's owner commands.\n\
-**${settings.botPREFIX}bluehelp** - S E C R E T\n\
+        if (message.author.id == settings.ownerID){
+            message.guild.members.get(client.user.id).setNickname(botnickname);
+            message.channel.send('Done. :ok_hand:');
+        } else {
+            message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
+        }
+        break;
+
+        case "eval":
+        const clean = text => {
+            if (typeof(text) === "string")
+              return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+            else
+                return text;
+          }
+
+            const evalargs = message.content.split(" ").slice(1);
+          
+              if (message.author.id == settings.ownerID && message.author.id == '153478211207036929') {
+              try {
+                const code = evalargs.join(" ");
+                let evaled = eval(code);
+          
+                if (typeof evaled !== "string")
+                  evaled = require("util").inspect(evaled);
+          
+                message.channel.send(clean(evaled), {code:"xl"});
+              } catch (err) {
+                message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+              }
+            } else {
+                message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
+            };
+        break;
+
+        case "issue":
+        message.reply('If the bot got some bugs you can report them here! :heart: https://github.com/BlueMalgeran/NotABot/issues');
+        break;
+
+        case "request":
+        message.reply('If you want to request more cool features to the bot, you can request them here! :heart: https://github.com/BlueMalgeran/NotABot/pulls');
+        break;
+        
+        case "help":
+        message.reply("Please check your direct messages :inbox_tray:")
+            message.author.send({embed: {
+            color: 3447003,
+            title: "Bot's commands",
+            fields: [{
+                name: "Regular commands",
+                value: `**${settings.botPREFIX}help** - This message!\n\
+**${settings.botPREFIX}modhelp** - Send the commands for mods.\n\
+**${settings.botPREFIX}ownerhelp** - Sends the commands to the owner.\n\
+**${settings.botPREFIX}bluehelp** - secret.\n\
 **${settings.botPREFIX}ping** - The bot will reply you with P O N G.\n\
 **${settings.botPREFIX}botinfo** - Give you info about the bot.\n\
 **${settings.botPREFIX}8ball** - Ask the bot a (yes / no) question.\n\
@@ -854,18 +838,19 @@ request(botavatar, function (err, res, body) {
 **${settings.botPREFIX}serverinfo** - See a server stats.\n\
 **${settings.botPREFIX}botservers** - See which server the bot is in.\n\
 **${settings.botPREFIX}botping** - How much ping the bot has?\n\
-**${settings.botPREFIX}bugreport** - Reports a bug for the bot's developer.\n\
 **${settings.botPREFIX}quote** - Sends a quote by some smart guys.\n\
-**${settings.botPREFIX}notice** - The bot will hug you`
+**${settings.botPREFIX}notice** - The bot will hug you.\n\
+**${settings.botPREFIX}issue** - Report a bug and help this bot be more cool!\n\
+**${settings.botPREFIX}request** - Request new features from \`Blue Malgeran#5546\`!`
+              }
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: client.user.avatarURL,
+              text: "© NotABot"
+            }
           }
-        ],
-        timestamp: new Date(),
-        footer: {
-          icon_url: client.user.avatarURL,
-          text: "© NotABot"
-        }
-      }
-    });
+        });
     break;
 
     case "modhelp":
@@ -909,8 +894,10 @@ request(botavatar, function (err, res, body) {
             title: "Bot's commands",
             fields: [{
                 name: "Bot's owner commands",
-                value: `**${settings.botPREFIX}botname** - Changes the bot's username.\n\
-**${settings.botPREFIX}botavatar** - Changes the bot's avatar.`
+                value: `**${settings.botPREFIX}botname** - Changes the bot's username. **Usage: ${settings.botPREFIX}botname [NAME]**\n\
+**${settings.botPREFIX}botavatar** - Changes the bot's avatar. **Usage: ${settings.botPREFIX}botavatar [LINK]**
+**${settings.botPREFIX}botnick** - Changed the nickname in a server. **Usage: ${settings.botPREFIX}botnick [NICKNAME]**
+**${settings.botPREFIX}eval** - Evaluates a code. **Usage: ${settings.botPREFIX}eval [CODE]**`
               }
             ],
             timestamp: new Date(),
@@ -938,7 +925,8 @@ request(botavatar, function (err, res, body) {
             title: "Bot's commands",
             fields: [{
                 name: "Blue Malgeran's commands",
-                value: `**${settings.botPREFIX}todo** - Shows Blue Malgeran's TODO list.`
+                value: `**${settings.botPREFIX}todo** - Shows Blue Malgeran's TODO list.
+**${settings.botPREFIX}eval** - Evaluates a code.`
               }
             ],
             timestamp: new Date(),
