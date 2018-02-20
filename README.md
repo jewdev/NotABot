@@ -45,7 +45,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new help commands! `help, modhelp, ownerhelp and bluehelp` It shows some commands for some people
 ### Removed:
 - The spammy messages that was in the `help` command
-- Completly removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
+- Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
 ### TODO:
 + ~~watch porn~~
 + Unban command.
