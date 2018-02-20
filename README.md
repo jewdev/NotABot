@@ -31,6 +31,8 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new moderation command! `softban` kicks a user and removes his messages.
 + Added new owner commands! `botname and botavatar` Changed the avatar and the name of the bot
 + Added new command for me! `todo` Shows my to do list.
++ Added new command! `issue` report a bug.
++ Added new command! `request` request something like music ¯\_(ツ)_/¯
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
