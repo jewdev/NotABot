@@ -5,7 +5,8 @@ A Discord bot made with Discord.JS
 2. Download Node.JS here: https://nodejs.org/en/
 3. Open cmd and type `npm install`
 4. Open cmd in the bot's folder and install the npm dependencies at `package.json`
-5. Open `startbot.bat` to make the bot online.
+5. Setup `settings.json`
+6. Open `startbot.bat` to make the bot online.
 # How to install (Linux)
 `$ git clone https://github.com/BlueMalgeran/NotABot`
 # Known bugs:
