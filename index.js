@@ -984,6 +984,8 @@ request(botavatar, function (err, res, body) {
         break;
 
         case "translate":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}dog command!`);
+
         const translate = require('google-translate-api');
         const Discord = require('discord.js');
 
@@ -1056,7 +1058,8 @@ request(botavatar, function (err, res, body) {
 **${settings.botPREFIX}request** - Request new features from \`Blue Malgeran#3106\`!\n\
 **${settings.botPREFIX}roll** - Rolls a random number!\n\
 **${settings.botPREFIX}dick** - Sizing the dick of the user!\n\
-**${settings.botPREFIX}dog** - Sends a picture of dog!`
+**${settings.botPREFIX}dog** - Sends a picture of dog!\n\
+**${settings.botPREFIX}translate** - Translates a text`
               }
             ],
             timestamp: new Date(),
