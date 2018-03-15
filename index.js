@@ -984,7 +984,7 @@ request(botavatar, function (err, res, body) {
         break;
 
         case "translate":
-        console.log(`${message.author.tag} used the ${settings.botPREFIX}dog command!`);
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}translate command!`);
 
         const translate = require('google-translate-api');
         const Discord = require('discord.js');
