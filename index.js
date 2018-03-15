@@ -80,7 +80,7 @@ client.on("message", async message => {
     // Bot's commands from here.
     switch (args[0]) {
         case "ping":
-            console.log(`${message.author.tag} used the ${settings.botPREFIX}pong command!`);
+            console.log(`${message.author.tag} used the ${settings.botPREFIX}ping command!`);
             message.reply("Pong!");
         break;
 
@@ -941,7 +941,6 @@ request(botavatar, function (err, res, body) {
 
         case "dick":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}dick command!`);
-
         // pretty shitty command
 
         let dicksize = ["=", "==", "===", "====", "=====", "======", "=======", "========", "=========", "=========="];
@@ -962,7 +961,6 @@ request(botavatar, function (err, res, body) {
         let {body} = await dogsuperagent
         .get(`https://random.dog/woof.json`);
 
-
         let dogpicembed = new Discord.RichEmbed()
         .setColor('#ff9900')
         .setTitle('Dog Picture')
@@ -970,7 +968,7 @@ request(botavatar, function (err, res, body) {
 
         message.channel.send(dogpicembed);
         break;
-
+        
         case "say":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}say command!`);
 
@@ -985,11 +983,52 @@ request(botavatar, function (err, res, body) {
         }
         break;
 
+        case "translate":
+        const translate = require('google-translate-api');
+        const Discord = require('discord.js');
+
+    let toTrans = message.content.split(' ').slice(1);
+    let language;
+
+    language = toTrans[toTrans.length - 2] === 'to' ? toTrans.slice(toTrans.length - 2, toTrans.length)[1].trim() : undefined;
+    if (!language) {
+        return message.reply(`Please supply valid agruments.\n**Example** \`${settings.botPREFIX}translate [text] to [language]\``);
+    }
+    let finalToTrans = toTrans.slice(toTrans.length - toTrans.length, toTrans.length - 2).join(' ');
+    translate(finalToTrans, {to: language}).then(res => {
+            message.channel.send({embed: {
+                color: 3447003,
+                author: {
+                  name: 'NotABot\'s translator',
+                  icon_url: client.user.avatarURL
+                },
+                fields: [{
+                    name: "Translator",
+                    value: `**From:** ${res.from.language.iso}\n\`\`\`${finalToTrans}\`\`\`\n**To: **${language}\n\`\`\`${res.text}\`\`\``
+                  }
+                ],
+                timestamp: new Date(),
+                footer: {
+                  icon_url: client.user.avatarURL,
+                  text: "© NotABot"
+                }
+              }
+            });
+    }).catch(err => {
+        message.channel.send({
+            embed: {
+                description: '❌ We could not find the supplied language.',
+                color: 0xE8642B
+            }
+        });
+    });
+        break;
+
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
 
-        message.reply("Please check your direct messages :inbox_tray:")
+        message.reply("Please check your direct messages :inbox_tray:");
             message.author.send({embed: {
             color: 3447003,
             title: "Bot's commands",
@@ -999,13 +1038,13 @@ request(botavatar, function (err, res, body) {
 **${settings.botPREFIX}modhelp** - Send the commands for mods.\n\
 **${settings.botPREFIX}ownerhelp** - Sends the commands to the owner.\n\
 **${settings.botPREFIX}bluehelp** - secret.\n\
-**${settings.botPREFIX}ping** - The bot will reply you with P O N G.\n\
+**${settings.botPREFIX}ping** - The bot will reply you with PONG.\n\
 **${settings.botPREFIX}botinfo** - Give you info about the bot.\n\
-**${settings.botPREFIX}8ball** - Ask the bot a (yes / no) question.\n\
+**${settings.botPREFIX}8ball** - Ask the bot a (yes/no) question.\n\
 **${settings.botPREFIX}weather** - Send a place in the world... x_x\n\
 **${settings.botPREFIX}invitebot** - The bot will reply with his invite URL.\n\
 **${settings.botPREFIX}coinflip** - Flips a coin! (50/50)\n\
-**${settings.botPREFIX}userinfo** - Mention someone to get information about him. (TOP SECRET)\n\
+**${settings.botPREFIX}userinfo** - Mention someone to get information about him.\n\
 **${settings.botPREFIX}avatar** - Mention someone to get his avatar.\n\
 **${settings.botPREFIX}uptime** - See the bot's stats.\n\
 **${settings.botPREFIX}serverinfo** - See a server stats.\n\
@@ -1017,7 +1056,7 @@ request(botavatar, function (err, res, body) {
 **${settings.botPREFIX}request** - Request new features from \`Blue Malgeran#3106\`!\n\
 **${settings.botPREFIX}roll** - Rolls a random number!\n\
 **${settings.botPREFIX}dick** - Sizing the dick of the user!\n\
-**${settings.botPREFIX}dog** - Sends a picture of a dog!`
+**${settings.botPREFIX}dog** - Sends a picture of dog!`
               }
             ],
             timestamp: new Date(),
