@@ -2,7 +2,7 @@
 
 <p align=center>
   <b>Join the support server :</b>
-  <a  href="http://discordserver.bluemalgeran.com">
+  <a href="http://discordserver.bluemalgeran.com">
     <img src="hhttps://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
   </a><br>
 </p>
