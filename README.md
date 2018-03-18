@@ -53,6 +53,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + I've added logs for every command and if the bot joins or leaves a server it will be logged!
 + Added a blacklist in the code but you don't need to change it... (I want the blacklists be in json files)
 + Added a message when the bot joins a server!
++ Added new command! `translate` if you want to translate a text 
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
