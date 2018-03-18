@@ -68,4 +68,4 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + ~~Bot's owner commands. (Avatar, username ETC.)~~
 + Some fun commands!
 + MUSIC? **( ͡° ͜ʖ ͡°)**
-# ![discordserver.bluemalgeran.com](Discord Server)
+![discordserver.bluemalgeran.com](Discord Server)
