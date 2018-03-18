@@ -1,6 +1,4 @@
-<p align=center>
 # NotABot
-</p>
 <p align=center>
   <a  href="discordserver.bluemalgeran.com">
     <img src="https://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
