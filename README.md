@@ -1,5 +1,8 @@
 # NotABot
-A Discord bot made with Discord.JS
+<p align=center>
+  <a  href="discordserver.bluemalgeran.com">
+    <img src="https://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
+  </a>
 # How to install (Windows)
 1. Download the files in the repository 
 2. Download Node.JS here: https://nodejs.org/en/
@@ -68,4 +71,3 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + ~~Bot's owner commands. (Avatar, username ETC.)~~
 + Some fun commands!
 + MUSIC? **( ͡° ͜ʖ ͡°)**
-[discordserver.bluemalgeran.com](Discord Server)
