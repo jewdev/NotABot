@@ -1,9 +1,15 @@
 # NotABot
+
 <p align=center>
-  <a  href="discordserver.bluemalgeran.com">
-    <img src="https://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
-  </a>
- </p>
+  <b>Join the support server :</b>
+  <a  href="http://discordserver.bluemalgeran.com">
+    <img src="hhttps://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
+  </a><br>
+</p>
+<p align=center>
+You can invite NotABot by clicking
+<a href="https://discordapp.com/oauth2/authorize?client_id=392860635035074572&scope=bot&permissions=805314622">this link</a><br><br>
+</p>
 # How to install (Windows)
 1. Download the files in the repository 
 2. Download Node.JS here: https://nodejs.org/en/
