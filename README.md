@@ -68,3 +68,5 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + ~~Bot's owner commands. (Avatar, username ETC.)~~
 + Some fun commands!
 + MUSIC? **( ͡° ͜ʖ ͡°)**
+# Discord Server
+<iframe src="https://discordapp.com/widget?id=424202281001680897&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
