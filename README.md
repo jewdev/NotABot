@@ -3,6 +3,7 @@
   <a  href="discordserver.bluemalgeran.com">
     <img src="https://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
   </a>
+ </p>
 # How to install (Windows)
 1. Download the files in the repository 
 2. Download Node.JS here: https://nodejs.org/en/
