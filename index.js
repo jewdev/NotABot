@@ -36,7 +36,7 @@ LET'S GO!
 
     console.log(clientonmessage);
       client.user.setGame(
-        "NotABot | BETA | http://BlueMalgeran.com",
+        `NotABot | ${client.guilds.size} servers | http://BlueMalgeran.com`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 });
@@ -50,7 +50,8 @@ client.on("guildCreate", guild => {
     guildMSG.send(`
 Hello there! My original name is \`NotABot\`!\n\
 This bot created by **Blue Malgeran#3106**\n\
-For more info type \`${settings.botPREFIX}help\`!`);
+For more info type \`${settings.botPREFIX}help\`!\n\
+\`NotABot - Official Server:\` https://discord.gg/KugMg6K`);
 });
 
 // Logs of the bot leaves a server
@@ -151,7 +152,7 @@ client.on("message", async message => {
         break;
 
         case "weather":
-        console.log(`${message.author.tag} used the ${settings.botPREFIX}botinfo command!`);
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}weather command!`);
 
         let apiKey = settings.weatherAPI;
         const fetch = require('node-fetch');
@@ -460,7 +461,7 @@ client.on("message", async message => {
         case "botping":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}botping command!`);
 
-        message.reply({embed: {
+        message.channel.send({embed: {
             color: 3447003,
             author: {
               name: client.user.username,
@@ -468,7 +469,7 @@ client.on("message", async message => {
             },
             fields: [{
                 name: "Bot's ping:",
-                value: client.ping
+                value: `\`${client.ping}ms\``
               }
             ],
             timestamp: new Date(),
@@ -976,7 +977,8 @@ request(botavatar, function (err, res, body) {
 
         if (message.author.id == settings.botPREFIX || message.author.id == "153478211207036929")
         {
-        message.channel.send(botsay);
+            message.delete();
+            message.channel.send(botsay);
         } else {
             message.delete();
             message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
@@ -987,7 +989,6 @@ request(botavatar, function (err, res, body) {
         console.log(`${message.author.tag} used the ${settings.botPREFIX}translate command!`);
 
         const translate = require('google-translate-api');
-        const Discord = require('discord.js');
 
     let toTrans = message.content.split(' ').slice(1);
     let language;
@@ -1026,6 +1027,63 @@ request(botavatar, function (err, res, body) {
     });
         break;
 
+        case "animepic":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}animepic command!`);
+        
+        const animesf = require('snekfetch');
+
+            let res = await animesf.get('http://api.cutegirls.moe/json');
+            if (res.body.status !== 200) {
+                return message.channel.send('An error occurred while processing this command.');
+            }
+            let animepicembed = new Discord.RichEmbed()
+            .setColor('#f266f9')
+            .setTitle('Anime Picture')
+            .setImage(res.body.data.image);
+    
+            message.channel.send(animepicembed);
+        break;
+
+        case "caps":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}caps command!`);
+
+        const sponge = require('spongeuscator');
+
+        if (message.content.split(' ').slice(1).join(' ').length < 4) {
+            return message.channel.send('Please give a message with more than 4 chars');
+        }
+            message.channel.send(sponge(message.content.split(' ').slice(1).join(' ')));
+        break;
+
+        case "advice":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}advice command!`);
+
+        const advicesf = require('snekfetch');
+
+            let r = await advicesf.get('http://api.adviceslip.com/advice');
+
+            let advice = JSON.parse(r.body).slip.advice;
+
+            message.channel.send({embed: {
+                color: 3447003,
+                author: {
+                  name: client.user.username,
+                  icon_url: client.user.avatarURL
+                },
+                fields: [{
+                    name: "Advice:",
+                    value: `\`${advice}\``
+                  }
+                ],
+                timestamp: new Date(),
+                footer: {
+                  icon_url: client.user.avatarURL,
+                  text: "© NotABot"
+                }
+              }
+            });
+        break;
+
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
@@ -1037,29 +1095,32 @@ request(botavatar, function (err, res, body) {
             fields: [{
                 name: "Regular commands",
                 value: `**${settings.botPREFIX}help** - This message!\n\
-**${settings.botPREFIX}modhelp** - Send the commands for mods.\n\
-**${settings.botPREFIX}ownerhelp** - Sends the commands to the owner.\n\
-**${settings.botPREFIX}bluehelp** - secret.\n\
-**${settings.botPREFIX}ping** - The bot will reply you with PONG.\n\
-**${settings.botPREFIX}botinfo** - Give you info about the bot.\n\
-**${settings.botPREFIX}8ball** - Ask the bot a (yes/no) question.\n\
-**${settings.botPREFIX}weather** - Send a place in the world... x_x\n\
-**${settings.botPREFIX}invitebot** - The bot will reply with his invite URL.\n\
-**${settings.botPREFIX}coinflip** - Flips a coin! (50/50)\n\
-**${settings.botPREFIX}userinfo** - Mention someone to get information about him.\n\
-**${settings.botPREFIX}avatar** - Mention someone to get his avatar.\n\
-**${settings.botPREFIX}uptime** - See the bot's stats.\n\
-**${settings.botPREFIX}serverinfo** - See a server stats.\n\
-**${settings.botPREFIX}botservers** - See which server the bot is in.\n\
-**${settings.botPREFIX}botping** - How much ping the bot has?\n\
-**${settings.botPREFIX}quote** - Sends a quote by some smart guys.\n\
-**${settings.botPREFIX}notice** - The bot will hug you.\n\
-**${settings.botPREFIX}issue** - Report a bug and help this bot be more cool!\n\
-**${settings.botPREFIX}request** - Request new features from \`Blue Malgeran#3106\`!\n\
+**${settings.botPREFIX}modhelp** - Commands for admins and mods\n\
+**${settings.botPREFIX}ownerhelp** - Owner's commands\n\
+**${settings.botPREFIX}bluehelp** - secret\n\
+**${settings.botPREFIX}ping** - ez reply\n\
+**${settings.botPREFIX}botinfo** - Give you info about the bot\n\
+**${settings.botPREFIX}8ball** - Ask the bot a (yes/no) question\n\
+**${settings.botPREFIX}weather** - Send a place in the world\n\
+**${settings.botPREFIX}invitebot** - Invite the bot\n\
+**${settings.botPREFIX}coinflip** - Flips a coin!\n\
+**${settings.botPREFIX}userinfo** - Mention user for info\n\
+**${settings.botPREFIX}avatar** - Get user's avatar\n\
+**${settings.botPREFIX}uptime** - See the bot's stats\n\
+**${settings.botPREFIX}serverinfo** - See server stats\n\
+**${settings.botPREFIX}botservers** - Bot's servers\n\
+**${settings.botPREFIX}botping** - How much ms?\n\
+**${settings.botPREFIX}quote** - Sends a quote by some smart guys\n\
+**${settings.botPREFIX}notice** - The bot will hug you\n\
+**${settings.botPREFIX}issue** - Report a bug\n\
+**${settings.botPREFIX}request** - Request new features\n\
 **${settings.botPREFIX}roll** - Rolls a random number!\n\
-**${settings.botPREFIX}dick** - Sizing the dick of the user!\n\
+**${settings.botPREFIX}dick** - Sizing the dick of the user\n\
 **${settings.botPREFIX}dog** - Sends a picture of dog!\n\
-**${settings.botPREFIX}translate** - Translates a text`
+**${settings.botPREFIX}translate** - Translates a text\n\
+**${settings.botPREFIX}animepic** - Sends a anime pic\n\
+**${settings.botPREFIX}caps** - Random caps\n\
+**${settings.botPREFIX}advice** - Gives you an advice`
               }
             ],
             timestamp: new Date(),
