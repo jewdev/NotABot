@@ -8,8 +8,9 @@
 </p>
 <p align=center>
 You can invite NotABot by clicking
-<a href="https://discordapp.com/oauth2/authorize?client_id=392860635035074572&scope=bot&permissions=805314622">this link</a><br><br>
+<a href="https://discordapp.com/oauth2/authorize?client_id=392860635035074572&scope=bot&permissions=805314622">this link</a>
 </p>
+
 # How to install (Windows)
 1. Download the files in the repository 
 2. Download Node.JS here: https://nodejs.org/en/
