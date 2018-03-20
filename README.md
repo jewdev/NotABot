@@ -1,13 +1,13 @@
 # NotABot
 
 <p align=center>
-  <a  href="http://discordserver.bluemalgeran.com">
+  <a  href="http://discordserver.bluemalgeran.com" target="_blank">
     <img src="https://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
   </a><br>
 </p>
 <p align=center>
 You can invite NotABot by clicking
-<a href="https://discordapp.com/oauth2/authorize?client_id=392860635035074572&scope=bot&permissions=805314622">this link</a>
+<a href="https://discordapp.com/oauth2/authorize?client_id=392860635035074572&scope=bot&permissions=805314622" target="_blank">this link</a>
 </p>
 
 # How to install (Windows)
