@@ -41,9 +41,14 @@ LET'S GO!
       );
 });
 
-// Logs of the bot joined a server
+// Logs of the bot joined a server and changed the game of the bot
 client.on("guildCreate", guild => {
     console.log(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
+
+    client.user.setGame(
+        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        "https://www.twitch.tv/BlueMalgeran"
+      );
 
     var guildMSG = guild.channels.find('name', 'general');
 
@@ -54,9 +59,14 @@ For more info type \`${settings.botPREFIX}help\`!\n\
 \`NotABot - Official Server:\` https://discord.gg/KugMg6K`);
 });
 
-// Logs of the bot leaves a server
+// Logs of the bot leaves a server and changed the game of the bot
 client.on("guildDelete", guild => {
     console.log(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
+
+    client.user.setGame(
+        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        "https://www.twitch.tv/BlueMalgeran"
+      );
 });
 
 // Message function
