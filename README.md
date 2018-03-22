@@ -68,6 +68,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new command! `caps` ranDom CAps LocK FoR Your Text
 + Added new command! `advice` the bot will give you an advice!
 + Added all of these new commands to the `help` command!
++ Added new command! `server` sends NotABot's Discord server!
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -85,6 +86,8 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Changed the reply messages.
 + Improved the `botping` command.
 + The bot deletes message when someone tries to use command that he can't.
++ Changed `invitebot` to `invite`
++ I don't know why but the `client.login` has been changed so I fixed it
 ### Removed:
 - The spammy messages that was in the `help` command
 - Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
