@@ -36,7 +36,7 @@ LET'S GO!
 
     console.log(clientonmessage);
       client.user.setGame(
-        `NotABot | ${client.guilds.size} servers | http://BlueMalgeran.com`,
+        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 });
@@ -1027,8 +1027,8 @@ request(botavatar, function (err, res, body) {
     });
         break;
 
-        case "animepic":
-        console.log(`${message.author.tag} used the ${settings.botPREFIX}animepic command!`);
+        case "anime":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}anime command!`);
         
         const animesf = require('snekfetch');
 
@@ -1084,6 +1084,16 @@ request(botavatar, function (err, res, body) {
             });
         break;
 
+        case "donate":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}donate command!`);
+
+        message.channel.send(`Hey there, Do want to donate for \`NotABot\`? This is the link https://www.patreon.com/NotABotDiscord, but, Why would you donate us?\n\
+**1.** I'm doing it for free and trying to help people with NotABot\n\
+**2.** NotABot has 24/7 host and I need to pay for it..\n\
+**3.** I'm working on this bot everyday and putting my daily affort in it!\n\
+**Thank you if you decided to become a patron!** :heart:`);
+        break;
+
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
@@ -1110,17 +1120,18 @@ request(botavatar, function (err, res, body) {
 **${settings.botPREFIX}serverinfo** - See server stats\n\
 **${settings.botPREFIX}botservers** - Bot's servers\n\
 **${settings.botPREFIX}botping** - How much ms?\n\
-**${settings.botPREFIX}quote** - Sends a quote by some smart guys\n\
-**${settings.botPREFIX}notice** - The bot will hug you\n\
+**${settings.botPREFIX}quote** - Quotes by people\n\
+**${settings.botPREFIX}notice** - I'll hug you\n\
 **${settings.botPREFIX}issue** - Report a bug\n\
 **${settings.botPREFIX}request** - Request new features\n\
 **${settings.botPREFIX}roll** - Rolls a random number!\n\
-**${settings.botPREFIX}dick** - Sizing the dick of the user\n\
+**${settings.botPREFIX}dick** - Sizing a dick\n\
 **${settings.botPREFIX}dog** - Sends a picture of dog!\n\
 **${settings.botPREFIX}translate** - Translates a text\n\
 **${settings.botPREFIX}animepic** - Sends a anime pic\n\
 **${settings.botPREFIX}caps** - Random caps\n\
-**${settings.botPREFIX}advice** - Gives you an advice`
+**${settings.botPREFIX}advice** - Gives you an advice\n\
+**${settings.botPREFIX}donate** - Help NotABot?`
               }
             ],
             timestamp: new Date(),
@@ -1240,4 +1251,4 @@ request(botavatar, function (err, res, body) {
 });
 
 // Bot's token (Synced from settings.json)
-client.login(settings.botTOKEN);
+client.login(process.env.TOKEN);
