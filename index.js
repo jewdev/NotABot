@@ -1104,11 +1104,6 @@ request(botavatar, function (err, res, body) {
 **Thank you if you decided to become a patron!** :heart:`);
         break;
 
-        case "server":
-        console.log(`${message.author.tag} used the ${settings.botPREFIX}server command!`);
-        message.channel.send(`You can join NotABot's server by clicking on this link:\n**http://discordserver.bluemalgeran.com**`);
-        break;
-
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
@@ -1157,6 +1152,7 @@ request(botavatar, function (err, res, body) {
             }
           }
         });
+        message.author.send('NotABot | Made by Blue Malgeran');
     break;
 
     case "modhelp":
@@ -1187,6 +1183,7 @@ request(botavatar, function (err, res, body) {
         }
       }
     });
+    message.author.send('NotABot | Made by Blue Malgeran');
     break;
 
     case "ownerhelp":
@@ -1219,6 +1216,7 @@ request(botavatar, function (err, res, body) {
             }
           }
         });
+        message.author.send('NotABot | Made by Blue Malgeran');
     } else {
         message.delete();
         message.channel.send(`\`📛\` Only the owner of the bot can use this command.`);
@@ -1253,6 +1251,7 @@ request(botavatar, function (err, res, body) {
             }
           }
         });
+        message.author.send('NotABot | Made by Blue Malgeran');
     } else {
         message.delete();
         message.channel.send(`\`📛\` You're not allowed to execute this command, only my lord can use this command!\n\
