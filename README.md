@@ -70,6 +70,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new command! `advice` the bot will give you an advice!
 + Added all of these new commands to the `help` command!
 + Added new command! `server` sends NotABot's Discord server!
++ Added another message to the help commands. ;)
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
