@@ -30,7 +30,8 @@ You can invite NotABot by clicking
 1. If you want to host it 24/7 type `npm install forever -g` or `npm install pm2`
 2. Type in the terminal `forever start index.js` or `pm2 start index.js` and the bot will be online 24/7!
 # Known bugs:
-+ Nothing yet.
++ No images in the `dog` and `anime` commands!
++ `botservers` sometimes not working :/
 # Note:
 This bot is BETA so the bot don't have too many commands, just the cool commands.
 And there is a copyright on this bot, so if someone takes credit on this bot I can prosecute him.
