@@ -1104,6 +1104,11 @@ request(botavatar, function (err, res, body) {
 **Thank you if you decided to become a patron!** :heart:`);
         break;
 
+        case "server":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}server command!`);
+        message.channel.send(`You can join NotABot's server by clicking on this link:\n**http://discordserver.bluemalgeran.com**`);
+        break;
+
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
@@ -1123,7 +1128,7 @@ request(botavatar, function (err, res, body) {
 **${settings.botPREFIX}8ball** - Ask the bot a (yes/no) question\n\
 **${settings.botPREFIX}weather** - Send a place in the world\n\
 **${settings.botPREFIX}invite** - Invite the bot\n\
-**${settings.botPREFIX}server** - Join NotABot's server
+**${settings.botPREFIX}server** - Join NotABot's server\n\
 **${settings.botPREFIX}coinflip** - Flips a coin!\n\
 **${settings.botPREFIX}userinfo** - Mention user for info\n\
 **${settings.botPREFIX}avatar** - Get user's avatar\n\
