@@ -311,94 +311,6 @@ client.on("message", async message => {
       }
         break;
 
-        case "uptime":
-        console.log(`${message.author.tag} used the ${settings.botPREFIX}uptime command!`);
-
-        let ms = client.uptime;
-        let cd = 24 * 60 * 60 * 1000; // Calc days
-        let ch = 60 * 60 * 1000; // Calc hours
-        let cm = 60 * 1000; // Calc minutes
-        let cs = 1000; // Calc seconds
-        let days = Math.floor(ms / cd);
-        let dms = days * cd; // Days, in ms
-        let hours = Math.floor((ms - dms) / ch);
-        let hms = hours * ch; // Hours, in ms
-        let minutes = Math.floor((ms - dms - hms) / cm);
-        let mms = minutes * cm; // Minutes, in ms
-        let seconds = Math.round((ms - dms - hms - mms) / cs);
-        if (seconds === 60) {
-            minutes++; // Increase by 1
-            seconds = 0;
-        }
-        if (minutes === 60) {
-            hours++; // Inc by 1
-            minutes = 0;
-        }
-        if (hours === 24) {
-            days++; // Increase by 1
-            hours = 0;
-        }
-        let dateStrings = [];
-
-        if (days === 1) {
-            dateStrings.push('**1** day');
-        } else if (days > 1) {
-            dateStrings.push('**' + String(days) + '** days');
-        }
-
-        if (hours === 1) {
-            dateStrings.push('**1** hour');
-        } else if (hours > 1) {
-            dateStrings.push('**' + String(hours) + '** hours');
-        }
-
-        if (minutes === 1) {
-            dateStrings.push('**1** minute');
-        } else if (minutes > 1) {
-            dateStrings.push('**' + String(minutes) + '** minutes');
-        }
-
-        if (seconds === 1) {
-            dateStrings.push('**1** second');
-        } else if (seconds > 1) {
-            dateStrings.push('**' + String(seconds) + '** seconds');
-        }
-
-        let dateString = '';
-        for (let i = 0; i < dateStrings.length - 1; i++) {
-            dateString += dateStrings[i];
-            dateString += ', ';
-        }
-        if (dateStrings.length >= 2) {
-            dateString = dateString.slice(0, dateString.length - 2) + dateString.slice(dateString.length - 1);
-            dateString += 'and ';
-        }
-        dateString += dateStrings[dateStrings.length - 1];
-
-      message.channel.send({embed: {
-        color: 3447003,
-        fields: [{
-            name: ':clock: Uptime',
-            value: 'Bot\'s uptime'
-          },
-          {
-            name: ":runner: Working in:",
-            value: `**${client.guilds.size}** servers`
-          },
-          {
-            name: ":white_check_mark: Online for:",
-            value: dateString
-          }
-        ],
-        timestamp: new Date(),
-        footer: {
-          icon_url: client.user.avatarURL,
-          text: "© NotABot"
-        }
-      }
-    });
-        break;
-
         case "serverinfo":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}serverinfo command!`);
 
@@ -1109,6 +1021,38 @@ request(botavatar, function (err, res, body) {
         message.channel.send(`You can join NotABot's server by clicking on this link:\n**http://discordserver.bluemalgeran.com**`);
         break;
 
+        case "stats":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}stats command!`);
+
+        const { version } = require("discord.js");
+        const statsmoment = require("moment");
+        require("moment-duration-format");
+        const duration = statsmoment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
+
+message.channel.send({embed: {
+    color: 3447003,
+    author: {
+        name: client.user.username,
+        icon_url: client.user.avatarURL
+    },
+    title: "Stats:",
+    fields: [
+      { name: ":fire: Memory", value: `**${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB**`, inline: true},
+      { name: ":clock1030:  Uptime", value: `**${duration}**`, inline: true},
+      { name: ":speech_balloon: Servers", value: `**${client.guilds.size.toLocaleString()}**`, inline: true},
+      { name: ":runner: Users", value: `**${client.users.size.toLocaleString()}**`, inline: true},
+      { name: ":incoming_envelope: Discord.js", value: `**v${version}**`, inline: true},
+      { name: ":white_check_mark: Node.js", value: `**${process.version}**`, inline: true}
+    ],
+    timestamp: new Date(),
+    footer: {
+        icon_url: client.user.avatarURL,
+        text: "© NotABot"
+    }
+  }
+});
+        break;
+
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
@@ -1132,7 +1076,7 @@ request(botavatar, function (err, res, body) {
 **${settings.botPREFIX}coinflip** - Flips a coin!\n\
 **${settings.botPREFIX}userinfo** - Mention user for info\n\
 **${settings.botPREFIX}avatar** - Get user's avatar\n\
-**${settings.botPREFIX}uptime** - See the bot's stats\n\
+**${settings.botPREFIX}stats** - Bot's stats\n\
 **${settings.botPREFIX}serverinfo** - See server stats\n\
 **${settings.botPREFIX}botservers** - Bot's servers\n\
 **${settings.botPREFIX}botping** - How much ms?\n\
