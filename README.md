@@ -71,6 +71,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added all of these new commands to the `help` command!
 + Added new command! `server` sends NotABot's Discord server!
 + Added another message to the help commands. ;)
++ Added new command! `stats` is like `uptime` (which remomved) but with more information! (Added to the `help` command)
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -94,6 +95,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 ### Removed:
 - The spammy messages that was in the `help` command
 - Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
+- Removed the `uptime` command and made another command with more informmation!
 ### TODO:
 + ~~watch porn~~
 + Unban command.
