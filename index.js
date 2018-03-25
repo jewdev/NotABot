@@ -438,7 +438,7 @@ client.on("message", async message => {
         }
 
         if (!time.match(/[1-7][s,m,h,d,w]/g)) {
-            return message.reply('I need a valid time ! look at the Usage! right here: **Usage:**`~mute [@mention] [1m] [example]`')
+            return message.reply('I need a valid time ! look at the Usage! right here: **Usage:**`~ban [@mention] [1m] [example]`')
         }
 
         if (!reason) {
@@ -498,7 +498,7 @@ client.on("message", async message => {
             return message.reply('You need to mention someone to Kick him!. **Usage:**`~kick [@mention] [example]`');
         }
         if (!reasonkick) {
-            return message.reply('You must give me a reason for mute **Usage:**`~kick [@mention] [example]`');
+            return message.reply('You must give me a reason for kick **Usage:**`~kick [@mention] [example]`');
         }
         if (!message.guild.member(usermentionkick).kickable) {
             return message.reply('This member is above me in the `role chain` Can\'t kick him');
@@ -1053,6 +1053,50 @@ message.channel.send({embed: {
 });
         break;
 
+        case "warn":
+        let warnReason = message.content.split(' ').slice(2).join(' ');
+        let warnTarget = message.mentions.users.first();
+        let warnModLog = client.channels.find('name', 'mod-log');
+
+        if (!message.guild.member(message.author).hasPermission('KICK_MEMBERS')) {
+            return message.reply(':lock: **You** need `KICK_MEMBERS` permission to execute `warn`');
+        }
+        if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) {
+            return message.reply(':lock: **I** need `KICK_MEMBERS` permission to execute `warn`');
+        }
+        if (!warnModLog) {
+            return message.reply('I need a text channel named `mod-log` to print my moderation logs in, please create one.');
+        }
+        if (message.mentions.users.size < 1) {
+            return message.reply('You need to mention someone to warn him!');
+        }
+        if (message.author.id === warnReason.id) {
+            return message.reply('You can\'t punish yourself :wink:');
+        }
+        if (!warnReason) {
+            return message.reply(`You must give me a reason to warn the user! **Uasge:** \`${settings.botPREFIX}warn [@mmention] [reason]\``);
+        }
+
+      warnModLog.send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        fields: [{
+            name: 'Warning',
+            value: `**Warned:**${warnTarget.username}#${warnTarget.discriminator}\n**Moderator:** ${message.author.username}\n**Reason:** ${warnReason}`
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "© NotABot"
+        }
+      }
+    });
+        break;
+
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
@@ -1088,7 +1132,7 @@ message.channel.send({embed: {
 **${settings.botPREFIX}dick** - Sizing a dick\n\
 **${settings.botPREFIX}dog** - Sends a picture of dog!\n\
 **${settings.botPREFIX}translate** - Translates a text\n\
-**${settings.botPREFIX}animepic** - Sends a anime pic\n\
+**${settings.botPREFIX}anime** - Sends a anime pic\n\
 **${settings.botPREFIX}caps** - Random caps\n\
 **${settings.botPREFIX}advice** - Gives you an advice\n\
 **${settings.botPREFIX}donate** - Help NotABot?`
@@ -1101,8 +1145,8 @@ message.channel.send({embed: {
             }
           }
         });
+
         message.author.send('NotABot | Made by Blue Malgeran');
-    break;
 
     case "modhelp":
     console.log(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
@@ -1122,7 +1166,8 @@ message.channel.send({embed: {
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
 **${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
-**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)`
+**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)\n\
+**${settings.botPREFIX}warn** - Warning a user (Moderation only!)`
           }
         ],
         timestamp: new Date(),
