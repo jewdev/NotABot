@@ -72,6 +72,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added new command! `server` sends NotABot's Discord server!
 + Added another message to the help commands. ;)
 + Added new command! `stats` is like `uptime` (which remomved) but with more information! (Added to the `help` command)
++ Added new moderation command! `warn` Warns a user with a reason and logs
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -92,6 +93,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Changed `invitebot` to `invite`
 + I don't know why but the `client.login` has been changed so I fixed it
 + Improved the bot's game! When the bot leaves / joins a server, the bot's game will be changed.
++ Typos :/
 ### Removed:
 - The spammy messages that was in the `help` command
 - Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
