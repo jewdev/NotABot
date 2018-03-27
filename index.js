@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const settings = require("./settings.json");
 const moment = require("moment");
+const DBL = require("dblapi.js");
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM5Mjg2MDYzNTAzNTA3NDU3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTIxNDgzOTg0fQ.XyoITQSmqgejue3R6nx3nDWTLweGZHEC1Gdbk07JoXI');
 
 var client = new Discord.Client();
 var embed = new Discord.RichEmbed();
@@ -36,7 +38,7 @@ LET'S GO!
 
     console.log(clientonmessage);
       client.user.setGame(
-        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 });
@@ -46,7 +48,7 @@ client.on("guildCreate", guild => {
     console.log(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
 
     client.user.setGame(
-        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 
@@ -64,7 +66,7 @@ client.on("guildDelete", guild => {
     console.log(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
 
     client.user.setGame(
-        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 });
@@ -1260,4 +1262,4 @@ message.channel.send({embed: {
 });
 
 // Bot's token (Synced from settings.json)
-client.login(settings.botTOKEN);
+client.login(process.env.TOKEN);
