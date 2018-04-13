@@ -36,17 +36,19 @@ LET'S GO!
 
     console.log(clientonmessage);
       client.user.setGame(
-        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 });
 
 // Logs of the bot joined a server and changed the game of the bot
 client.on("guildCreate", guild => {
+    const logsServerJoin = client.channels.get(settings.logsChannelID);
     console.log(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
+    logsServerJoin.send(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
 
     client.user.setGame(
-        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 
@@ -61,10 +63,12 @@ For more info type \`${settings.botPREFIX}help\`!\n\
 
 // Logs of the bot leaves a server and changed the game of the bot
 client.on("guildDelete", guild => {
+    const logsServerLeave = client.channels.get(settings.logsChannelID);
     console.log(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
+    logsServerLeave.send(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
 
     client.user.setGame(
-        `NotABot | ${client.guilds.size} servers | ${settings.botPREFIX}help`,
+        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
         "https://www.twitch.tv/BlueMalgeran"
       );
 });
@@ -75,11 +79,18 @@ client.on("message", async message => {
 
     if (!message.content.startsWith(settings.botPREFIX)) return;
 
-    //Disables commands in a private chat
-    if  (message.channel.type == "dm") return console.log(`${message.author.tag} tried to use a command in DM!`);
+    const logsCommands = client.channels.get(settings.logsChannelID);
 
+    //Disables commands in a private chat
+    if  (message.channel.type == "dm") {
+        console.log(`${message.author.tag} tried to use a command in DM!`);
+        return logsCommands.send(`${message.author.tag} tried to use a command in DM!`);
+    }
     //Users blacklist
-    if (message.author.id == "") return console.log(`[BlackList] ${message.author.tag} tried to use a command!`);
+    if (message.author.id == "") {
+        console.log(`[BlackList] ${message.author.tag} tried to use a command!`);
+        return logsCommands.send(`[BlackList] ${message.author.tag} tried to use a command!`);
+    }
 
     //Channels blacklist
     if (message.channel.id == "") return;
@@ -92,11 +103,13 @@ client.on("message", async message => {
     switch (args[0]) {
         case "ping":
             console.log(`${message.author.tag} used the ${settings.botPREFIX}ping command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}ping command!`);
             message.reply("Pong!");
         break;
 
         case "botinfo":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}botinfo command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}botinfo command!`);
 
         message.channel.send({embed: {
             color: 3447003,
@@ -134,6 +147,7 @@ client.on("message", async message => {
 
         case "8ball":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}8ball command!`);
+        logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}8ball command!`);
 
         let question = message.content.split(' ').slice(1).join(' ');
 
@@ -163,10 +177,11 @@ client.on("message", async message => {
 
         case "weather":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}weather command!`);
+        logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}weather command!`);
 
         let apiKey = settings.weatherAPI;
         const fetch = require('node-fetch');
-        let arg = message.content.split(' ').join(' ').slice(8);
+        let arg = message.content.split(' ').join(' ').slice(9);
         if (!arg) {
             return message.reply('I need a city to check :wink:');
         }
@@ -198,12 +213,14 @@ client.on("message", async message => {
 
         case "invite":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}invite command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}invite command!`);
 
         message.reply("Okay, you can invite me here: https://discordapp.com/oauth2/authorize?client_id=" + client.user.id + "&scope=bot&permissions=0");
         break;
 
         case "coinflip":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}coinflip command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}coinflip command!`);
 
         let answers = [
             'heads',
@@ -229,6 +246,7 @@ client.on("message", async message => {
 
         case "userinfo":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}userinfo command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}userinfo command!`);
 
         let user = message.mentions.users.first();
         if (!user) {
@@ -300,6 +318,7 @@ client.on("message", async message => {
 
         case "avatar":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}avatar command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}avatar command!`);
         
         if(message.mentions.users.first()) { //Check if the message has a mention in it.
             let user = message.mentions.users.first(); //Since message.mentions.users returns a collection; we must use the first() method to get the first in the collection.
@@ -313,6 +332,7 @@ client.on("message", async message => {
 
         case "serverinfo":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}serverinfo command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}serverinfo command!`);
 
         let guildmessageServerInfo = message.guild;
         let nameServerInfo = message.guild.name;
@@ -357,6 +377,7 @@ client.on("message", async message => {
 
         case "botservers":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}botservers command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}botservers command!`);
 
         let Table = require(`cli-table`);
         let table = new Table({
@@ -405,6 +426,7 @@ client.on("message", async message => {
 
         case "ban":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}ban command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}ban command!`);
 
         const mmss = require('ms');
         let reason = message.content.split(' ').slice(3).join(' ');
@@ -449,7 +471,7 @@ client.on("message", async message => {
             return message.reply('This member is above me in the `role chain` Can\'t ban them')
         }
 
-        message.reply("This user has been banned form the server.");
+        message.reply("This user has been banned from the server.");
 
         usermention.send(`You've just got banned from ${guild.name}  \n State reason: **${reason}** \n **Disclamer**: If the ban is not timed and Permanent you may not appeal the **BAN**!`)
         message.guild.ban(usermention, 7);
@@ -478,12 +500,13 @@ client.on("message", async message => {
 
         case "kick":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}kick command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}kick command!`);
 
         if (!message.guild.member(message.author).hasPermission('KICK_MEMBERS')) {
             return message.reply(':lock: You dont have permissions for that')
         }
         if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) {
-            return message.reply(':lock: **I** need `KICK_MEMBERS` Permissions to execute `mute`')
+            return message.reply(':lock: **I** need `KICK_MEMBERS` Permissions to execute `kick`')
         }
         let usermentionkick = message.mentions.users.first();
         let reasonkick = message.content.split(' ').slice(2).join(' ');
@@ -527,6 +550,7 @@ client.on("message", async message => {
 
         case "mute":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}mute command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}mute command!`);
 
         if (!message.guild.member(message.author).hasPermission('MUTE_MEMBERS')) {
             message.channel.send(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`');
@@ -609,29 +633,31 @@ client.on("message", async message => {
 
         case "unmute":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}unmute command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}unmute command!`);
 
         let guildUnmute = message.guild;
         let argsUnmute = message.content.split(' ').slice(1);
         let argresultUnmute = args.join(' ');
         let reasonUnmute = args;
         if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES')) {
-            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`')
+            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `unmute`')
         }
         if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) {
-            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `mute`')
+            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `unmute`')
         }
         let userUnmute = message.mentions.users.first();
-        let muteRoleUnmute = client.guilds.get(message.guild.id).roles.find('name', 'muted');
+        let muteRoleUnmute = client.guilds.get(message.guild.id).roles.find('name', 'NotAMute');
         if (message.mentions.users.size < 1) {
             return message.reply('You need to mention someone to unmute him!.');
         }
         message.guild.member(userUnmute).removeRole(muteRoleUnmute).then(() => {
-            message.reply(`You've succesfully unmuted ${userUnmute}`);
+            message.channel.send(`You've succesfully unmuted ${userUnmute}`);
         });
         break;
 
         case "quote":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}quote command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}quote command!`);
 
         const fetchquote = require('snekfetch');
         fetchquote.get('http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en').then(quote => {
@@ -662,6 +688,7 @@ client.on("message", async message => {
 
         case "notice":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}notice command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}notice command!`);
 
         var hugs = [
             "`＼(^o^)／`",
@@ -676,6 +703,7 @@ client.on("message", async message => {
 
         case "softban":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}softban command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}softban command!`);
 
         let reasonSoftban = message.content.split(' ').slice(3).join(' ');
         let timeSoftban = message.content.split(' ')[2];
@@ -728,6 +756,7 @@ client.on("message", async message => {
 
         case "todo":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}todo command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}todo command!`);
 
         if (message.author.id == '153478211207036929') {
             return message.channel.send(`**Unban command.**\n
@@ -746,6 +775,7 @@ client.on("message", async message => {
 
         case "botname":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}botname command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}botname command!`);
 
         const botusername = message.content.split(' ').slice(1).join(' ');
 
@@ -760,6 +790,7 @@ client.on("message", async message => {
 
         case "botavatar":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}botavatar command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}botavatar command!`);
 
         const botavatar = message.content.split(' ').slice(1).join(' ');
         var request = require("request").defaults({ "encoding" : null });
@@ -781,6 +812,7 @@ request(botavatar, function (err, res, body) {
 
         case "botnick":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}botnick command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}botnick command!`);
 
         const botnickname = message.content.split(' ').slice(1).join(' ');
 
@@ -825,18 +857,21 @@ request(botavatar, function (err, res, body) {
 
         case "issue":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}issue command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}issue command!`);
 
         message.reply('If the bot got some bugs you can report them here! :heart: https://github.com/BlueMalgeran/NotABot/issues');
         break;
 
         case "request":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}request command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}request command!`);
 
         message.reply('If you want to request more cool features to the bot, you can request them here! :heart: https://github.com/BlueMalgeran/NotABot/pulls');
         break;
 
         case "shutdown":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}shutdown command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}shutdown command!`);
 
         if (message.author.id == settings.ownerID || message.author.id == "153478211207036929") {
                 const filterYes = m => m.content.startsWith('yes');
@@ -852,6 +887,7 @@ request(botavatar, function (err, res, body) {
 
         case "roll":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}roll command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}roll command!`);
 
         let rollnumber = message.content.split(' ').slice(1).join(' ');
 
@@ -864,6 +900,7 @@ request(botavatar, function (err, res, body) {
 
         case "dick":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}dick command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}dick command!`);
         // pretty shitty command
 
         let dicksize = ["=", "==", "===", "====", "=====", "======", "=======", "========", "=========", "=========="];
@@ -872,12 +909,16 @@ request(botavatar, function (err, res, body) {
         if (!dickuser) {
             return message.channel.send('You must mention someone!');
         }
+        if (dickuser.id == "153478211207036929") {
+            return message.channel.send(`**${dickuser} Size: ** 8=============================D\nSized by **${message.author.tag}**`);
+        }
 
         message.channel.send(`**${dickuser} Size: ** 8${dicksize[~~Math.floor(Math.random() * dicksize.length)]}D\nSized by **${message.author.tag}**`);
         break;
 
         case "dog":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}dog command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}dog command!`);
 
         const dogsuperagent = require('superagent');
 
@@ -894,6 +935,7 @@ request(botavatar, function (err, res, body) {
         
         case "say":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}say command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}say command!`);
 
         const botsay = message.content.split(' ').slice(1).join(' ');
 
@@ -909,6 +951,7 @@ request(botavatar, function (err, res, body) {
 
         case "translate":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}translate command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}translate command!`);
 
         const translate = require('google-translate-api');
 
@@ -951,6 +994,7 @@ request(botavatar, function (err, res, body) {
 
         case "anime":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}anime command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}anime command!`);
         
         const animesf = require('snekfetch');
 
@@ -968,6 +1012,7 @@ request(botavatar, function (err, res, body) {
 
         case "caps":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}caps command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}caps command!`);
 
         const sponge = require('spongeuscator');
 
@@ -979,6 +1024,7 @@ request(botavatar, function (err, res, body) {
 
         case "advice":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}advice command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}advice command!`);
 
         const advicesf = require('snekfetch');
 
@@ -1008,6 +1054,7 @@ request(botavatar, function (err, res, body) {
 
         case "donate":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}donate command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}donate command!`);
 
         message.channel.send(`Hey there, Do want to donate for \`NotABot\`? This is the link https://www.patreon.com/NotABotDiscord, but, Why would you donate us?\n\
 **1.** I'm doing it for free and trying to help people with NotABot\n\
@@ -1018,11 +1065,13 @@ request(botavatar, function (err, res, body) {
 
         case "server":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}server command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}server command!`);
         message.channel.send(`You can join NotABot's server by clicking on this link:\n**http://discordserver.bluemalgeran.com**`);
         break;
 
         case "stats":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}stats command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}stats command!`);
 
         const { version } = require("discord.js");
         const statsmoment = require("moment");
@@ -1052,54 +1101,11 @@ message.channel.send({embed: {
   }
 });
         break;
-
-        case "warn":
-        let warnReason = message.content.split(' ').slice(2).join(' ');
-        let warnTarget = message.mentions.users.first();
-        let warnModLog = client.channels.find('name', 'mod-log');
-
-        if (!message.guild.member(message.author).hasPermission('KICK_MEMBERS')) {
-            return message.reply(':lock: **You** need `KICK_MEMBERS` permission to execute `warn`');
-        }
-        if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) {
-            return message.reply(':lock: **I** need `KICK_MEMBERS` permission to execute `warn`');
-        }
-        if (!warnModLog) {
-            return message.reply('I need a text channel named `mod-log` to print my moderation logs in, please create one.');
-        }
-        if (message.mentions.users.size < 1) {
-            return message.reply('You need to mention someone to warn him!');
-        }
-        if (message.author.id === warnReason.id) {
-            return message.reply('You can\'t punish yourself :wink:');
-        }
-        if (!warnReason) {
-            return message.reply(`You must give me a reason to warn the user! **Uasge:** \`${settings.botPREFIX}warn [@mmention] [reason]\``);
-        }
-
-      warnModLog.send({embed: {
-        color: 3447003,
-        author: {
-          name: client.user.username,
-          icon_url: client.user.avatarURL
-        },
-        fields: [{
-            name: 'Warning',
-            value: `**Warned:**${warnTarget.username}#${warnTarget.discriminator}\n**Moderator:** ${message.author.username}\n**Reason:** ${warnReason}`
-          }
-        ],
-        timestamp: new Date(),
-        footer: {
-          icon_url: client.user.avatarURL,
-          text: "© NotABot"
-        }
-      }
-    });
-        break;
-
+        
         // Help commands :)
         case "help":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
 
         message.reply("Please check your direct messages :inbox_tray:");
             message.author.send({embed: {
@@ -1147,9 +1153,11 @@ message.channel.send({embed: {
         });
 
         message.author.send('NotABot | Made by Blue Malgeran');
+        break;
 
     case "modhelp":
     console.log(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
+        logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
 
     message.reply("Please check your direct messages :inbox_tray: (Moderation commands.)");
 
@@ -1166,8 +1174,7 @@ message.channel.send({embed: {
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
 **${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
-**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)\n\
-**${settings.botPREFIX}warn** - Warning a user (Moderation only!)`
+**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)`
           }
         ],
         timestamp: new Date(),
@@ -1182,6 +1189,7 @@ message.channel.send({embed: {
 
     case "ownerhelp":
     console.log(`${message.author.tag} used the ${settings.botPREFIX}ownerhelp command!`);
+        logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}ownerhelp command!`);
 
     if (message.author.id == settings.ownerID) {
         message.reply("Please check your direct messages :inbox_tray: (Owner commands.)");
@@ -1219,6 +1227,7 @@ message.channel.send({embed: {
 
     case "bluehelp":
     console.log(`${message.author.tag} used the ${settings.botPREFIX}bluehelp command!`);
+        logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}bluehelp command!`);
 
     if (message.author.id == '153478211207036929') {
         message.reply('Hello there my lord! Check your DM :wink:');
@@ -1252,10 +1261,6 @@ message.channel.send({embed: {
         \`Lord: Blue Malgeran#3106\``);
     }
     break;
-
-        // Message when someone uses the prefix wrong
-        default:
-            message.channel.send("Invalid command.");
     }
 });
 
