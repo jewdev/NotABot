@@ -705,7 +705,7 @@ client.on("message", async message => {
         console.log(`${message.author.tag} used the ${settings.botPREFIX}softban command!`);
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}softban command!`);
 
-        let reasonSoftban = message.content.split(' ').slice(3).join(' ');
+        let reasonSoftban = message.content.split(' ').slice(7).join(' ');
         let timeSoftban = message.content.split(' ')[2];
         let guildSoftban = message.guild;
         let modlogSoftban = message.guild.channels.find('name', 'mod-log');
@@ -903,7 +903,7 @@ request(botavatar, function (err, res, body) {
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}dick command!`);
         // pretty shitty command
 
-        let dicksize = ["=", "==", "===", "====", "=====", "======", "=======", "========", "=========", "=========="];
+        let dicksize = ["8=D", "8==D", "8===D", "8====D", "8=====D", "8======D", "8=======D", "8========D", "8=========D", "8==========D", "404 not found"];
         let dickuser = message.mentions.users.first();
 
         if (!dickuser) {
@@ -913,7 +913,7 @@ request(botavatar, function (err, res, body) {
             return message.channel.send(`**${dickuser} Size: ** 8=============================D\nSized by **${message.author.tag}**`);
         }
 
-        message.channel.send(`**${dickuser} Size: ** 8${dicksize[~~Math.floor(Math.random() * dicksize.length)]}D\nSized by **${message.author.tag}**`);
+        message.channel.send(`**${dickuser} Size: ** ${dicksize[~~Math.floor(Math.random() * dicksize.length)]}\nSized by **${message.author.tag}**`);
         break;
 
         case "dog":
@@ -1066,7 +1066,7 @@ request(botavatar, function (err, res, body) {
         case "server":
         console.log(`${message.author.tag} used the ${settings.botPREFIX}server command!`);
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}server command!`);
-        message.channel.send(`You can join NotABot's server by clicking on this link:\n**http://discordserver.bluemalgeran.com**`);
+        message.channel.send(`You can join NotABot's server by clicking on this link:\n**https://discord.gg./KugMg6K**`);
         break;
 
         case "stats":

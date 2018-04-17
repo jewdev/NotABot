@@ -96,6 +96,8 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Improved the bot's game! When the bot leaves / joins a server, the bot's game will be changed.
 + Typos :/
 + Changed the bot's game / stream
++ Improved the `dick` command.
++ Changed the server link in the command `server`
 ### Removed:
 - The spammy messages that was in the `help` command
 - Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
