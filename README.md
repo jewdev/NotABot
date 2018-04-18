@@ -105,8 +105,8 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 - Removed the `warn` commmand
 ### TODO:
 - [x] watch porn
-+ Unban command.
-+ Blacklist from .json file
+- [ ] Unban command.
+- [ ] Blacklist from .json file
 - [x] Mute command.
 - [x] Unmute command.
 - [x] Server info.
