@@ -104,7 +104,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 - Removed the `uptime` command and made another command with more informmation!
 - Removed the `warn` commmand
 ### TODO:
-- [x] watch porn
+- [x] \(done.) watch porn
 - [ ] Unban command.
 - [ ] Blacklist from .json file
 - [x] Mute command.
