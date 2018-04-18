@@ -104,13 +104,13 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 - Removed the `uptime` command and made another command with more informmation!
 - Removed the `warn` commmand
 ### TODO:
-[x] watch porn
+- [x] watch porn
 + Unban command.
 + Blacklist from .json file
-[x] Mute command.
-[x] Unmute command.
-[x] Server info.
-[x] Softban command.
-[x] Bot's owner commands. (Avatar, username ETC.)
-[x] Some fun commands!
-[x] MUSIC? **( ͡° ͜ʖ ͡°)**
+- [x] Mute command.
+- [x] Unmute command.
+- [x] Server info.
+- [x] Softban command.
+- [x] Bot's owner commands. (Avatar, username ETC.)
+- [x] Some fun commands!
+- [x] MUSIC? **( ͡° ͜ʖ ͡°)**
