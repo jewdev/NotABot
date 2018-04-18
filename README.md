@@ -113,4 +113,4 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 - [x] Softban command.
 - [x] Bot's owner commands. (Avatar, username ETC.)
 - [x] Some fun commands!
-- [x] MUSIC? **( ͡° ͜ʖ ͡°)**
+- [ ] MUSIC? **( ͡° ͜ʖ ͡°)**
