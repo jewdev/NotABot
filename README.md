@@ -74,8 +74,7 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added logs in a text channel for bot's commands
 + Added `logsChannelID` to `settings.json` log commands and some more shit
 + Added `statusTYPE` to `settings.json` Set the bot's status aka game to `PLAYING, WATCHING and LISTENING (I don't think that STREAMING is working...)`
-+ Added reaction to messages that users can't / can use, for example: `ownerhelp, bluehelp, todo ETC.`
-+ ↑ Added check mark reaction to the help messages that regular users can use to the `help and modhelp` commands!
++ Added reaction to messages! Go find it out!
 + Now you can use the `say` command.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
