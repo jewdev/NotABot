@@ -14,16 +14,15 @@ You can invite NotABot by clicking
 1. Download the files in the repository 
 2. Download Node.JS here: https://nodejs.org/en/
 3. Open cmd and type `npm install`
-4. Open cmd in the bot's folder and install the npm dependencies from `package.json`
-5. Setup `settings.json`
-6. Open `startbot.bat` to make the bot online.
+4. Setup `settings.json`
+5. Open `startbot.bat` to make the bot online.
 # 24/7 host (Windows)
 1. Open cmd in the folder and type `npm install pm2`
 2. Type in the cmd `pm2 start index.js` abd the bot will be online 24/7!
 # How to install (Ubuntu)
 1. `$ git clone https://github.com/BlueMalgeran/NotABot`
 2. Download node.js `$ sudo apt-get install -y nodejs`
-3. Install the dependencies from `package.json`
+3. Type `npm install` and it'll install the whole `package.json` dependencies
 4. Setup `settings.json`
 5. Type `node index.js` in the terminal
 # 24/7 host (Ubuntu)
