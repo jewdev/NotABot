@@ -35,10 +35,7 @@ LET'S GO!
 -----------------Bot's commands logs------------------`
 
     console.log(clientonmessage);
-      client.user.setGame(
-        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
-        "https://www.twitch.tv/BlueMalgeran"
-      );
+    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
 });
 
 // Logs of the bot joined a server and changed the game of the bot
@@ -47,18 +44,19 @@ client.on("guildCreate", guild => {
     console.log(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
     logsServerJoin.send(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
 
-    client.user.setGame(
-        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
-        "https://www.twitch.tv/BlueMalgeran"
-      );
+    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
 
     var guildMSG = guild.channels.find('name', 'general');
 
-    guildMSG.send(`
+    if (guildMSG) {
+        guildMSG.send(`
 Hello there! My original name is \`NotABot\`!\n\
 This bot created by **Blue Malgeran#3106**\n\
 For more info type \`${settings.botPREFIX}help\`!\n\
 \`NotABot - Official Server:\` https://discord.gg/KugMg6K`);
+    } else {
+        return;
+    }
 });
 
 // Logs of the bot leaves a server and changed the game of the bot
@@ -67,10 +65,7 @@ client.on("guildDelete", guild => {
     console.log(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
     logsServerLeave.send(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
 
-    client.user.setGame(
-        `${client.guilds.size} servers | ${settings.botPREFIX}help`,
-        "https://www.twitch.tv/BlueMalgeran"
-      );
+    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
 });
 
 // Message function
@@ -639,8 +634,8 @@ client.on("message", async message => {
         let argsUnmute = message.content.split(' ').slice(1);
         let argresultUnmute = args.join(' ');
         let reasonUnmute = args;
-        if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES')) {
-            return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `unmute`')
+        if (!message.guild.member(message.author).hasPermission('MUTE_MEMBERS')) {
+            return message.reply(':lock: **You** need `MUTE_MEMBERS` Permissions to execute `unmute`')
         }
         if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES')) {
             return message.reply(':lock: **I** need `MANAGE_ROLES` Permissions to execute `unmute`')
@@ -768,7 +763,7 @@ client.on("message", async message => {
 ~~Softban command\n~~
 **~~watch porn man~~**`);
         } else {
-            message.delete();
+            message.react('❌');
             message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
         }
         break;
@@ -783,7 +778,7 @@ client.on("message", async message => {
             client.user.setUsername(botusername);
             message.reply('Done. :ok_hand:');
         } else {
-            message.delete();
+            message.react('❌');
             message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
         }
         break;
@@ -805,7 +800,7 @@ request(botavatar, function (err, res, body) {
     }
 });
         } else {
-            message.delete();
+            message.react('❌');
             message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
         }
         break;
@@ -820,7 +815,7 @@ request(botavatar, function (err, res, body) {
             message.guild.members.get(client.user.id).setNickname(botnickname);
             message.channel.send('Done. :ok_hand:');
         } else {
-            message.delete();
+            message.react('❌');
             message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
         }
         break;
@@ -850,7 +845,7 @@ request(botavatar, function (err, res, body) {
                 message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
               }
             } else {
-                message.delete();
+                message.react('❌');
                 message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
             };
         break;
@@ -880,7 +875,7 @@ request(botavatar, function (err, res, body) {
                     process.exit()
                 });
         } else {
-            message.delete();
+            message.react('❌');
             message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
         }
         break;
@@ -939,14 +934,8 @@ request(botavatar, function (err, res, body) {
 
         const botsay = message.content.split(' ').slice(1).join(' ');
 
-        if (message.author.id == settings.botPREFIX || message.author.id == "153478211207036929")
-        {
             message.delete();
             message.channel.send(botsay);
-        } else {
-            message.delete();
-            message.channel.send(`\`📛\` You don't have permissions to execute that command.`);
-        }
         break;
 
         case "translate":
@@ -1107,7 +1096,10 @@ message.channel.send({embed: {
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
 
+        message.react('✅');
+
         message.reply("Please check your direct messages :inbox_tray:");
+
             message.author.send({embed: {
             color: 3447003,
             title: "Bot's commands",
@@ -1141,7 +1133,8 @@ message.channel.send({embed: {
 **${settings.botPREFIX}anime** - Sends a anime pic\n\
 **${settings.botPREFIX}caps** - Random caps\n\
 **${settings.botPREFIX}advice** - Gives you an advice\n\
-**${settings.botPREFIX}donate** - Help NotABot?`
+**${settings.botPREFIX}donate** - Help NotABot?\n\
+**${settings.botPREFIX}say** - Tell me what to say`
               }
             ],
             timestamp: new Date(),
@@ -1159,6 +1152,8 @@ message.channel.send({embed: {
     console.log(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
         logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
 
+    message.react('✅');
+    
     message.reply("Please check your direct messages :inbox_tray: (Moderation commands.)");
 
     message.author.send({embed: {
@@ -1192,6 +1187,8 @@ message.channel.send({embed: {
         logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}ownerhelp command!`);
 
     if (message.author.id == settings.ownerID) {
+        message.react('✅');
+
         message.reply("Please check your direct messages :inbox_tray: (Owner commands.)");
 
         message.author.send({embed: {
@@ -1207,8 +1204,7 @@ message.channel.send({embed: {
 **${settings.botPREFIX}botavatar** - Changes the bot's avatar. **Usage: ${settings.botPREFIX}botavatar [LINK]**\n\
 **${settings.botPREFIX}botnick** - Changed the nickname in a server. **Usage: ${settings.botPREFIX}botnick [NICKNAME]**\n\
 **${settings.botPREFIX}eval** - Evaluates a code. **Usage: ${settings.botPREFIX}eval [CODE]**\n\
-**${settings.botPREFIX}shutdown** - Closes the CMD window!\n\
-**${settings.botPREFIX}say** - Give the bot something to say!`
+**${settings.botPREFIX}shutdown** - Closes the CMD window!`
               }
             ],
             timestamp: new Date(),
@@ -1220,7 +1216,7 @@ message.channel.send({embed: {
         });
         message.author.send('NotABot | Made by Blue Malgeran');
     } else {
-        message.delete();
+        message.react('❌');
         message.channel.send(`\`📛\` Only the owner of the bot can use this command.`);
     }
     break;
@@ -1230,6 +1226,8 @@ message.channel.send({embed: {
         logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}bluehelp command!`);
 
     if (message.author.id == '153478211207036929') {
+        message.react('✅');
+
         message.reply('Hello there my lord! Check your DM :wink:');
 
         message.author.send({embed: {
@@ -1243,8 +1241,7 @@ message.channel.send({embed: {
                 name: "Blue Malgeran's commands",
                 value: `**${settings.botPREFIX}todo** - Shows Blue Malgeran's TODO list.\n\
 **${settings.botPREFIX}eval** - Evaluates a code.\n\
-**${settings.botPREFIX}shutdown** - Closes the CMD window.\n\
-**${settings.botPREFIX}say** - Give the bot something to say!`
+**${settings.botPREFIX}shutdown** - Closes the CMD window.`
               }
             ],
             timestamp: new Date(),
@@ -1256,7 +1253,7 @@ message.channel.send({embed: {
         });
         message.author.send('NotABot | Made by Blue Malgeran');
     } else {
-        message.delete();
+        message.react('❌');
         message.channel.send(`\`📛\` You're not allowed to execute this command, only my lord can use this command!\n\
         \`Lord: Blue Malgeran#3106\``);
     }
