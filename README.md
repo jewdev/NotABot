@@ -72,7 +72,11 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Added another message to the help commands. ;)
 + Added new command! `stats` is like `uptime` (which remomved) but with more information! (Added to the `help` command)
 + Added logs in a text channel for bot's commands
-+ Added `logsChannelID` to `settings.json`
++ Added `logsChannelID` to `settings.json` log commands and some more shit
++ Added `statusTYPE` to `settings.json` Set the bot's status aka game to `PLAYING, WATCHING and LISTENING (I don't think that STREAMING is working...)`
++ Added reaction to messages that users can't / can use, for example: `ownerhelp, bluehelp, todo ETC.`
++ ↑ Added check mark reaction to the help messages that regular users can use to the `help and modhelp` commands!
++ Now you can use the `say` command.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -97,6 +101,9 @@ And there is a copyright on this bot, so if someone takes credit on this bot I c
 + Changed the bot's game / stream
 + Improved the `dick` command.
 + Changed the server link in the command `server`
++ Changed the shitty `setGame` to `setActivity` with new setting! GO TO ADDED CATEGORY TO SEE!
++ Improved the `guildMSG` function.
++ MORE TYPOS!!!!!
 ### Removed:
 - The spammy messages that was in the `help` command
 - Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
