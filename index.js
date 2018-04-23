@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 const settings = require("./settings.json");
 const moment = require("moment");
-const DBL = require("dblapi.js");
-const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM5Mjg2MDYzNTAzNTA3NDU3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTIxNDgzOTg0fQ.XyoITQSmqgejue3R6nx3nDWTLweGZHEC1Gdbk07JoXI');
 
 var client = new Discord.Client();
 var embed = new Discord.RichEmbed();
@@ -22,11 +20,6 @@ var fortunes = [
 
 // Functions when the bot is online
 client.on("ready", function() {
-	
-	 setInterval(() => {
-        dbl.postStats(client.guilds.size);
-    }, 1800000);
-	
     var clientonmessage = `
 ------------------------------------------------------
 > Logging in...
@@ -42,7 +35,7 @@ LET'S GO!
 -----------------Bot's commands logs------------------`
 
     console.log(clientonmessage);
-      client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
+    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
 });
 
 // Logs of the bot joined a server and changed the game of the bot
@@ -1269,4 +1262,4 @@ message.channel.send({embed: {
 });
 
 // Bot's token (Synced from settings.json)
-client.login(process.env.TOKEN);
+client.login(settings.botTOKEN);
