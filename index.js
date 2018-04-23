@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const settings = require("./settings.json");
 const moment = require("moment");
+const DBL = require("dblapi.js");
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM5Mjg2MDYzNTAzNTA3NDU3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTIxNDgzOTg0fQ.XyoITQSmqgejue3R6nx3nDWTLweGZHEC1Gdbk07JoXI');
 
 var client = new Discord.Client();
 var embed = new Discord.RichEmbed();
@@ -20,6 +22,11 @@ var fortunes = [
 
 // Functions when the bot is online
 client.on("ready", function() {
+	
+	 setInterval(() => {
+        dbl.postStats(client.guilds.size);
+    }, 1800000);
+	
     var clientonmessage = `
 ------------------------------------------------------
 > Logging in...
@@ -35,7 +42,7 @@ LET'S GO!
 -----------------Bot's commands logs------------------`
 
     console.log(clientonmessage);
-    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
+      client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
 });
 
 // Logs of the bot joined a server and changed the game of the bot
@@ -887,10 +894,10 @@ request(botavatar, function (err, res, body) {
         let rollnumber = message.content.split(' ').slice(1).join(' ');
 
         if (!rollnumber) {
-            return message.reply(`Please provide a number!\n**Usage:** \`${settings.botPREFIX}roll <number>\``);
+            return message.reply(`:game_die: Just rolled a number: **${Math.floor(Math.random() * 100) + 1}**`);
         }
 
-        message.reply(`${Math.floor(Math.random() * rollnumber) + 1}`);
+        message.reply(`:game_die: Just rolled a number: **${Math.floor(Math.random() * rollnumber) + 1}**`);
         break;
 
         case "dick":
@@ -1047,7 +1054,7 @@ request(botavatar, function (err, res, body) {
 
         message.channel.send(`Hey there, Do want to donate for \`NotABot\`? This is the link https://www.patreon.com/NotABotDiscord, but, Why would you donate us?\n\
 **1.** I'm doing it for free and trying to help people with NotABot\n\
-**2.** NotABot has 24/7 host and I need to pay for it..\n\
+**2.** NotABot is under 24/7 host and I need to pay for it..\n\
 **3.** I'm working on this bot everyday and putting my daily affort in it!\n\
 **Thank you if you decided to become a patron!** :heart:`);
         break;
@@ -1262,4 +1269,4 @@ message.channel.send({embed: {
 });
 
 // Bot's token (Synced from settings.json)
-client.login(settings.botTOKEN);
+client.login(process.env.TOKEN);
