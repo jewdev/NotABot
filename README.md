@@ -32,6 +32,11 @@ You can invite NotABot by clicking
 + No images in the `dog` and `anime` commands!
 + `botservers` sometimes not working :/
 + `SyntaxError: missing ) after argument list` a bug on Linux (Ubuntu)... You need to remove commands that require the async function. Example: weather, anime and dog. and change `client.on("message", async message => {` to `client.on("message", function() {` and it will fix the issue.
+# Requirements:
++ Node.js
++ NPM
++ (Optional) npm install forever (24/7 host on Linux)
++ (Optional) npm install pm2 (24/7 host on Windows)
 # Note:
 This bot is BETA so the bot don't have too many commands, just the cool commands.
 And there is a copyright on this bot, so if someone takes credit on this bot I can prosecute him.
