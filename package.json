@@ -1,13 +1,13 @@
 {
-  "name": "bluebot",
+  "name": "notabot",
   "version": "1.0.0",
-  "description": "BlueBot | Made by Blue Malgeran",
+  "description": "NotABot | Created by Blue Malgeran",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Blue Malgeran",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.0",
     "cat-api": "^1.2.1",
