@@ -35,6 +35,7 @@ You can invite NotABot by clicking
 # Requirements:
 + Node.js
 + NPM
++ The dependencies
 + (Optional) npm install forever (24/7 host on Linux)
 + (Optional) npm install pm2 (24/7 host on Windows)
 # Note:
