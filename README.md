@@ -24,8 +24,8 @@ Table of contents
    * [Note](#note)
    * [License](#license)
    * [Changelog](#changelog)
-   * [TODO](#todo)
    * [Commands](#commands)
+   * [TODO](#todo)
 <!--te-->
 
 
