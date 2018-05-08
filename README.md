@@ -148,3 +148,36 @@ SOFTWARE.
 - [x] Bot's owner commands. (Avatar, username ETC.)
 - [x] Some fun commands!
 - [ ] MUSIC? **( ͡° ͜ʖ ͡°)**
+
+# Commands:
+Command|Description|Example
+---|---|---
+help|Sends the bot's commands.|~help
+modhelp|Commands for admins and mods.|~modhelp
+ownerhelp|Owner's commands.|~ownerhelp
+bluehelp|secret.|~bluehelp
+ping|Bot's ping (ms).|~ping
+info|Give you info about the bot.|~info
+8ball|Ask the bot a (yes/no) question.|~8ball [question]
+weather|The weather in a city.|~weather [city]
+invite|Invite the bot.|~invite
+server|Join NotABot's server.|~server
+coinflip|Flips a coin! (50/50 chance)|~coinflip
+userinfo|Info about a user.|~userinfo [@mention]
+avatar|Gets the avatar of the user.|~avatar [@mention]
+stats|Bot's stats.|~stats
+serverinfo|Info about the server.|~serverinfo
+botservers|The servers the bot is in.|~botservers
+quote|Quotes by smart people.|~quote
+notice|The bot will hug you!|~notice
+issue|Report bugs!|~issue
+request|Request new features for the bot.|~request
+roll|Rolls a random number.|~roll [number]
+dick|Sizing a dick|~dick [@mention]
+dog|Sends a picture of a dog!|~dog
+translate|Translates text from language to another language|~translate [text] to [language]
+anime|Sends a anime picture.|~anime
+caps|Random caps.|~caps [text]
+advice|Gives you an advice.|~advice
+donate|Help NotABot live!|~donate
+say|Tell NotABot something to say!|~say [text]
