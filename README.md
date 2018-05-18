@@ -1,5 +1,4 @@
 # NotABot
-
 <p align=center>
   <a  href="http://discordserver.bluemalgeran.com" target="_blank">
     <img src="https://discordapp.com/api/guilds/424202281001680897/widget.png?style=banner4">
@@ -10,38 +9,62 @@ You can invite NotABot by clicking
 <a href="https://discordapp.com/oauth2/authorize?client_id=392860635035074572&scope=bot&permissions=805314622" target="_blank">this link</a>
 </p>
 
-# How to install (Windows)
+Table of contents
+=================
+
+<!--ts-->
+   * [Windows](#windows-instructions)
+      * [How to install](#how-to-install)
+      * [24/7 host](#24-7-host)
+   * [Ubuntu](#ubuntu-instructions)
+      * [How to install](#how-to-install)
+      * [24/7 host](#24-7-host)
+   * [Known bugs](#known-bugs)
+   * [Requirements](#requirements)
+   * [Note](#note)
+   * [License](#license)
+   * [Changelog](#changelog)
+   * [Commands](#commands)
+   * [TODO](#todo)
+<!--te-->
+
+
+# Windows instructions
+### How to install
 1. Download the files in the repository 
 2. Download Node.JS here: https://nodejs.org/en/
 3. Open cmd and type `npm install`
 4. Setup `settings.json`
 5. Open `startbot.bat` to make the bot online.
-# 24/7 host (Windows)
+### 24 7 host
 1. Open cmd in the folder and type `npm install pm2`
 2. Type in the cmd `pm2 start index.js` abd the bot will be online 24/7!
-# How to install (Ubuntu)
+
+# Ubuntu instructions
+### How to install
 1. `$ git clone https://github.com/BlueMalgeran/NotABot`
 2. Download node.js `$ sudo apt-get install -y nodejs`
 3. Type `npm install` and it'll install the whole `package.json` dependencies
 4. Setup `settings.json`
 5. Type `node index.js` in the terminal
-# 24/7 host (Ubuntu)
+### 24 7 host
 1. If you want to host it 24/7 type `npm install forever -g` or `npm install pm2`
 2. Type in the terminal `forever start index.js` or `pm2 start index.js` and the bot will be online 24/7!
-# Known bugs:
+
+# Known bugs
 + No images in the `dog` and `anime` commands!
 + `botservers` sometimes not working :/
 + `SyntaxError: missing ) after argument list` a bug on Linux (Ubuntu)... You need to remove commands that require the async function. Example: weather, anime and dog. and change `client.on("message", async message => {` to `client.on("message", function() {` and it will fix the issue.
-# Requirements:
+# Requirements
 + Node.js
 + NPM
 + The dependencies
 + (Optional) npm install forever (24/7 host on Linux)
 + (Optional) npm install pm2 (24/7 host on Windows)
-# Note:
+# Note
 This bot is BETA so the bot don't have too many commands, just the cool commands.
 And there is a copyright on this bot, so if someone takes credit on this bot I can prosecute him.
-# License:
+# License
 The MIT License (MIT)
 
 Copyright (c) 2018 Blue Malgeran
@@ -105,6 +128,7 @@ SOFTWARE.
 + Added `statusTYPE` to `settings.json` Set the bot's status aka game to `PLAYING, WATCHING and LISTENING (I don't think that STREAMING is working...)`
 + Added reaction to messages! Go find it out!
 + Now you can use the `say` command.
++ Added `clear` commmand which will delete messages.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -132,12 +156,47 @@ SOFTWARE.
 + Changed the shitty `setGame` to `setActivity` with new setting! GO TO ADDED CATEGORY TO SEE!
 + Improved the `guildMSG` function.
 + MORE TYPOS!!!!!
++ Changed the `ping` reply to `client.ping` and improved it :/
++ Changed the `botinfo` command's name to `info`
++ Fixed the `serverinfo` command.
 ### Removed:
 - The spammy messages that was in the `help` command
 - Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
 - Removed the `uptime` command and made another command with more informmation!
 - Removed the `warn` commmand
-### TODO:
+# Commands
+Command|Description|Example
+---|---|---
+help|Sends the bot's commands.|~help
+modhelp|Commands for admins and mods.|~modhelp
+ownerhelp|Owner's commands.|~ownerhelp
+bluehelp|secret.|~bluehelp
+ping|Bot's ping (ms).|~ping
+info|Give you info about the bot.|~info
+8ball|Ask the bot a (yes/no) question.|~8ball [question]
+weather|The weather in a city.|~weather [city]
+invite|Invite the bot.|~invite
+server|Join NotABot's server.|~server
+coinflip|Flips a coin! (50/50 chance)|~coinflip
+userinfo|Info about a user.|~userinfo [@mention]
+avatar|Gets the avatar of the user.|~avatar [@mention]
+stats|Bot's stats.|~stats
+serverinfo|Info about the server.|~serverinfo
+botservers|The servers the bot is in.|~botservers
+quote|Quotes by smart people.|~quote
+notice|The bot will hug you!|~notice
+issue|Report bugs!|~issue
+request|Request new features for the bot.|~request
+roll|Rolls a random number.|~roll [number]
+dick|Sizing a dick|~dick [@mention]
+dog|Sends a picture of a dog!|~dog
+translate|Translates text from language to another language|~translate [text] to [language]
+anime|Sends a anime picture.|~anime
+caps|Random caps.|~caps [text]
+advice|Gives you an advice.|~advice
+donate|Help NotABot live!|~donate
+say|Tell NotABot something to say!|~say [text]
+# TODO
 - [x] watch porn
 - [ ] Unban command.
 - [ ] Blacklist from .json file
