@@ -3,7 +3,6 @@ const settings = require("./settings.json");
 const moment = require("moment");
 
 var client = new Discord.Client();
-var embed = new Discord.RichEmbed();
 
 // Fortunes for 8ball command
 var fortunes = [
@@ -96,15 +95,9 @@ client.on("message", async message => {
     var args = message.content.substring(settings.botPREFIX.length).split(" ");
     // Bot's commands from here.
     switch (args[0]) {
-        case "ping":
-            console.log(`${message.author.tag} used the ${settings.botPREFIX}ping command!`);
-            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}ping command!`);
-            message.reply("Pong!");
-        break;
-
-        case "botinfo":
-        console.log(`${message.author.tag} used the ${settings.botPREFIX}botinfo command!`);
-            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}botinfo command!`);
+        case "info":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}info command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}info command!`);
 
         message.channel.send({embed: {
             color: 3447003,
@@ -344,7 +337,7 @@ client.on("message", async message => {
                 color: 3447003,
                 author: {
                   name: message.guild.name,
-                  icon_url: message.guild.displayAvatarURL
+                  icon_url: message.guild.iconURL
                 },
                 title: "Server Information",
                 fields: [{
@@ -367,7 +360,6 @@ client.on("message", async message => {
                 }
               }
             });
-
         break;
 
         case "botservers":
@@ -396,11 +388,14 @@ client.on("message", async message => {
            message.channel.send(`Im inside these servers! http://hastebin.com/` + r.body.key));
         break;
 
-        case "botping":
-        console.log(`${message.author.tag} used the ${settings.botPREFIX}botping command!`);
+        case "ping":
+        console.log(`${message.author.tag} used the ${settings.botPREFIX}ping command!`);
+        logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}ping command!`);
+
+        var msTOcolor = (client.ping > 100) ? "15158332":"3066993"
 
         message.channel.send({embed: {
-            color: 3447003,
+            color: msTOcolor,
             author: {
               name: client.user.username,
               icon_url: client.user.avatarURL
@@ -902,7 +897,7 @@ request(botavatar, function (err, res, body) {
         let dickuser = message.mentions.users.first();
 
         if (!dickuser) {
-            return message.channel.send('You must mention someone!');
+            return message.channel.send('You must mention someone!\n(This is 100% accurate!)');
         }
         if (dickuser.id == "153478211207036929") {
             return message.channel.send(`**${dickuser} Size: ** 8=============================D\nSized by **${message.author.tag}**`);
@@ -1090,6 +1085,27 @@ message.channel.send({embed: {
   }
 });
         break;
+
+        case "clear":
+            console.log(`${message.author.tag} used the ${settings.botPREFIX}clear command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}clear command!`);
+
+            if (!message.guild.member(message.author).hasPermission('MANAGE_MESSAGES')) return message.reply(':lock: **You** need `MANAGE_MESSAGES` permissions to execute `clear`');
+            if (!message.guild.member(client.user).hasPermission('MANAGE_MESSAGES')) return message.reply(':lock: **I** need `MANAGE_MESSAGES` Permissions to execute `clear`');
+            const firstUserClear = message.mentions.users.first();
+            const amount = !!parseInt(message.content.split(' ')[1]) ? parseInt(message.content.split(' ')[1]) : parseInt(message.content.split(' ')[2])
+            if (!amount) return message.reply('Must specify an amount to delete!');
+            if (!amount && !firstUserClear) return message.reply('Must specify a user and amount, or just an amount, of messages to purge!');
+            message.channel.fetchMessages({
+                limit: amount,
+            }).then((messages) => {
+                if (firstUserClear) {
+                    const filterBy = firstUserClear ? firstUserClear.id : client.user.id;
+                    messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
+                }
+                message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
+            });
+            break;
         
         // Help commands :)
         case "help":
@@ -1109,8 +1125,8 @@ message.channel.send({embed: {
 **${settings.botPREFIX}modhelp** - Commands for admins and mods\n\
 **${settings.botPREFIX}ownerhelp** - Owner's commands\n\
 **${settings.botPREFIX}bluehelp** - secret\n\
-**${settings.botPREFIX}ping** - ez reply\n\
-**${settings.botPREFIX}botinfo** - Give you info about the bot\n\
+**${settings.botPREFIX}ping** - How much ms?\n\
+**${settings.botPREFIX}info** - Give you info about the bot\n\
 **${settings.botPREFIX}8ball** - Ask the bot a (yes/no) question\n\
 **${settings.botPREFIX}weather** - Send a place in the world\n\
 **${settings.botPREFIX}invite** - Invite the bot\n\
@@ -1121,7 +1137,6 @@ message.channel.send({embed: {
 **${settings.botPREFIX}stats** - Bot's stats\n\
 **${settings.botPREFIX}serverinfo** - See server stats\n\
 **${settings.botPREFIX}botservers** - Bot's servers\n\
-**${settings.botPREFIX}botping** - How much ms?\n\
 **${settings.botPREFIX}quote** - Quotes by people\n\
 **${settings.botPREFIX}notice** - I'll hug you\n\
 **${settings.botPREFIX}issue** - Report a bug\n\
@@ -1169,7 +1184,8 @@ message.channel.send({embed: {
 **${settings.botPREFIX}kick** - Kicks a user out of the server! (Mederation only!)\n\
 **${settings.botPREFIX}mute** - Muted a user with a **muted** role! (Moderation only!)\n\
 **${settings.botPREFIX}unmute** - Unmutes a user and removes the **muted** role. (Moderation only!)\n\
-**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)`
+**${settings.botPREFIX}softban** - Kicks a user and deletes his messages. (Moderation only!)\n\
+**${settings.botPREFIX}clear** - Clear messages / user's messages! (Moderation only!)`
           }
         ],
         timestamp: new Date(),
