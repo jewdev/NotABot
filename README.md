@@ -128,6 +128,7 @@ SOFTWARE.
 + Added `statusTYPE` to `settings.json` Set the bot's status aka game to `PLAYING, WATCHING and LISTENING (I don't think that STREAMING is working...)`
 + Added reaction to messages! Go find it out!
 + Now you can use the `say` command.
++ Added `clear` commmand which will delete messages.
 ### Changed:
 + The bot's token was the game that he's playing instead the bot's prefix... lol
 + Changed the `botinfo` command for an embed message.
@@ -155,6 +156,9 @@ SOFTWARE.
 + Changed the shitty `setGame` to `setActivity` with new setting! GO TO ADDED CATEGORY TO SEE!
 + Improved the `guildMSG` function.
 + MORE TYPOS!!!!!
++ Changed the `ping` reply to `client.ping` and improved it :/
++ Changed the `botinfo` command's name to `info`
++ Fixed the `serverinfo` command.
 ### Removed:
 - The spammy messages that was in the `help` command
 - Permanently removed `bugreport` because you can report bugs [here](https://github.com/BlueMalgeran/NotABot/issues)
