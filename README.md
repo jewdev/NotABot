@@ -25,6 +25,9 @@ Table of contents
    * [License](#license)
    * [Changelog](#changelog)
    * [Commands](#commands)
+      * [Regular commands](#regular-commands)
+      * [Moderation commands](#moderation-commands)
+      * [Bot's owner commands](#bots-owner-commands)
    * [TODO](#todo)
 <!--te-->
 
@@ -165,6 +168,7 @@ SOFTWARE.
 - Removed the `uptime` command and made another command with more informmation!
 - Removed the `warn` commmand
 # Commands
+### Regular commands
 Command|Description|Example
 ---|---|---
 help|Sends the bot's commands.|~help
@@ -196,6 +200,25 @@ caps|Random caps.|~caps [text]
 advice|Gives you an advice.|~advice
 donate|Help NotABot live!|~donate
 say|Tell NotABot something to say!|~say [text]
+
+### Moderation commands
+Command|Description|Example
+---|---|---
+ban|Bans a user from your server!|~ban [@mention] [time - 2h - 2 hours] [reason]
+kick|Kicks a user out of the server!|~kick [@mention] [reason]
+mute|Mutes a user with a NotAMuted role!|~mute [@mention] [time - 2w - 2 weeks]
+unmute|Unmutes a user and removes the NotAMuted role.|~unmute [@mention]
+softban|Kicks a user and deletes his messages.|~softban [@mention] [reason]
+clear|Remove messages / user's messages|~clear [number] or ~clear [@mention] [number]
+
+### Bots owner commands
+Command|Description|Example
+---|---|---
+botname|Changes the bot's username.|~botname [text]
+botavatar|Changes the bot's avatar.|~botavatar [URL]
+botnick|Changes the nickname in a server.|~botnick [text]
+eval|Evaluates a code.|~eval [code]
+shutdown|Closes the CMD window|~shutdown
 # TODO
 - [x] watch porn
 - [ ] Unban command.
