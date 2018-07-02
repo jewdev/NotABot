@@ -1,8 +1,11 @@
 const Discord = require("discord.js");
 const settings = require("./settings.json");
 const moment = require("moment");
+const DBL = require("dblapi.js");
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM5Mjg2MDYzNTAzNTA3NDU3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTIxNDgzOTg0fQ.XyoITQSmqgejue3R6nx3nDWTLweGZHEC1Gdbk07JoXI');
 
 var client = new Discord.Client();
+var embed = new Discord.RichEmbed();
 
 // Fortunes for 8ball command
 var fortunes = [
@@ -19,6 +22,11 @@ var fortunes = [
 
 // Functions when the bot is online
 client.on("ready", function() {
+	
+	 setInterval(() => {
+        dbl.postStats(client.guilds.size);
+    }, 1800000);
+	
     var clientonmessage = `
 ------------------------------------------------------
 > Logging in...
@@ -34,7 +42,19 @@ LET'S GO!
 -----------------Bot's commands logs------------------`
 
     console.log(clientonmessage);
-    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
+    //The default game.
+    //client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
+
+    // Cool interval loop for the bot's game.
+    let statusArray = [
+        `${settings.botPREFIX}help | ${client.guilds.size} servers!`,
+        `${settings.botPREFIX}help | ${client.channels.size} channels!`,
+        `${settings.botPREFIX}help | ${client.users.size} users!`
+    ];
+
+    setInterval(function() {
+        client.user.setActivity(`${statusArray[~~(Math.random() * statusArray.length)]}`, { type: settings.statusTYPE });
+    }, 100000);
 });
 
 // Logs of the bot joined a server and changed the game of the bot
@@ -72,6 +92,8 @@ client.on("message", async message => {
     if (message.author.equals(client.user)) return;
 
     if (!message.content.startsWith(settings.botPREFIX)) return;
+	
+	 if (message.author.bot) return;
 
     const logsCommands = client.channels.get(settings.logsChannelID);
 
@@ -929,6 +951,8 @@ request(botavatar, function (err, res, body) {
 
         const botsay = message.content.split(' ').slice(1).join(' ');
 
+        if (!botsay) return message.channel.send('Please tell me what to say!');
+
             message.delete();
             message.channel.send(botsay);
         break;
@@ -1043,7 +1067,7 @@ request(botavatar, function (err, res, body) {
         message.channel.send(`Hey there, Do want to donate for \`NotABot\`? This is the link https://www.patreon.com/NotABotDiscord, but, Why would you donate us?\n\
 **1.** I'm doing it for free and trying to help people with NotABot\n\
 **2.** NotABot is under 24/7 host and I need to pay for it..\n\
-**3.** I'm working on this bot everyday and putting my daily affort in it!\n\
+**3.** I'm working on this bot everyday and putting my daily effort in it!\n\
 **Thank you if you decided to become a patron!** :heart:`);
         break;
 
@@ -1085,7 +1109,7 @@ message.channel.send({embed: {
   }
 });
         break;
-
+            
         case "clear":
             console.log(`${message.author.tag} used the ${settings.botPREFIX}clear command!`);
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}clear command!`);
@@ -1112,9 +1136,10 @@ message.channel.send({embed: {
         console.log(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}help command!`);
 
-        message.react('✅');
+        try {
+            message.reply("Please check your direct messages :inbox_tray:");
 
-        message.reply("Please check your direct messages :inbox_tray:");
+            message.react('✅');
 
             message.author.send({embed: {
             color: 3447003,
@@ -1161,9 +1186,13 @@ message.channel.send({embed: {
         });
 
         message.author.send('NotABot | Made by Blue Malgeran');
+        }
+        catch(err) {
+            message.channel.send('I could not send you my commands!');
+        } 
         break;
-
-    case "modhelp":
+		
+		    case "modhelp":
     console.log(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
         logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
 
@@ -1278,4 +1307,4 @@ message.channel.send({embed: {
 });
 
 // Bot's token (Synced from settings.json)
-client.login(settings.botTOKEN);
+client.login(process.env.TOKEN);
