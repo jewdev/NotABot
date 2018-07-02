@@ -1,11 +1,8 @@
 const Discord = require("discord.js");
 const settings = require("./settings.json");
 const moment = require("moment");
-const DBL = require("dblapi.js");
-const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM5Mjg2MDYzNTAzNTA3NDU3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTIxNDgzOTg0fQ.XyoITQSmqgejue3R6nx3nDWTLweGZHEC1Gdbk07JoXI');
 
 var client = new Discord.Client();
-var embed = new Discord.RichEmbed();
 
 // Fortunes for 8ball command
 var fortunes = [
@@ -22,11 +19,6 @@ var fortunes = [
 
 // Functions when the bot is online
 client.on("ready", function() {
-	
-	 setInterval(() => {
-        dbl.postStats(client.guilds.size);
-    }, 1800000);
-	
     var clientonmessage = `
 ------------------------------------------------------
 > Logging in...
@@ -63,8 +55,6 @@ client.on("guildCreate", guild => {
     console.log(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
     logsServerJoin.send(`The bot just joined to ${guild.name}, Owned by ${guild.owner.user.tag}`);
 
-    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
-
     var guildMSG = guild.channels.find('name', 'general');
 
     if (guildMSG) {
@@ -83,8 +73,6 @@ client.on("guildDelete", guild => {
     const logsServerLeave = client.channels.get(settings.logsChannelID);
     console.log(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
     logsServerLeave.send(`The bot has been left ${guild.name}, Owned by ${guild.owner.user.tag}`);
-
-    client.user.setActivity(`${client.guilds.size} servers | ${settings.botPREFIX}help`, { type: settings.statusTYPE });
 });
 
 // Message function
@@ -92,8 +80,8 @@ client.on("message", async message => {
     if (message.author.equals(client.user)) return;
 
     if (!message.content.startsWith(settings.botPREFIX)) return;
-	
-	 if (message.author.bot) return;
+
+    if (message.author.bot) return;
 
     const logsCommands = client.channels.get(settings.logsChannelID);
 
@@ -1024,10 +1012,8 @@ request(botavatar, function (err, res, body) {
 
         const sponge = require('spongeuscator');
 
-        if (message.content.split(' ').slice(1).join(' ').length < 4) {
-            return message.channel.send('Please give a message with more than 4 chars');
-        }
-            message.channel.send(sponge(message.content.split(' ').slice(1).join(' ')));
+        if (message.content.split(' ').slice(1).join(' ').length < 4) return message.channel.send('Please give a message with more than 4 chars');
+        message.channel.send(sponge(message.content.split(' ').slice(1).join(' ')));
         break;
 
         case "advice":
@@ -1081,10 +1067,10 @@ request(botavatar, function (err, res, body) {
         console.log(`${message.author.tag} used the ${settings.botPREFIX}stats command!`);
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}stats command!`);
 
-        const { version } = require("discord.js");
-        const statsmoment = require("moment");
+        let { version } = require("discord.js");
+        let statsmoment = require("moment");
         require("moment-duration-format");
-        const duration = statsmoment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
+        let duration = statsmoment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
 message.channel.send({embed: {
     color: 3447003,
@@ -1109,7 +1095,7 @@ message.channel.send({embed: {
   }
 });
         break;
-            
+
         case "clear":
             console.log(`${message.author.tag} used the ${settings.botPREFIX}clear command!`);
             logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}clear command!`);
@@ -1129,6 +1115,62 @@ message.channel.send({embed: {
                 }
                 message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
             });
+            break;
+
+            case "botstatus":
+            console.log(`${message.author.tag} used the ${settings.botPREFIX}botstatus command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}botstatus command!`);
+
+            let setStatusArgs = message.content.split(' ').slice(1).join(' ');
+            
+            if (!message.author.id == settings.ownerID) return message.channel.send(`\`📛\` You're not allowed to execute this command!`);
+            if (!setStatusArgs) return message.channel.send(`**Missing argument.**\nExample: **${settings.botPREFIX}setstatus [online, idle, dnd, invisible]**`);
+            if (!setStatusArgs == "online" || "idle" || "dnd" || "invisible") return message.channel.send(`**Wrong argument.**\nExample: **${settings.botPREFIX}setstatus [online, idle, dnd, invisible]**`);
+
+            client.user.setStatus(setStatusArgs)
+            .then(message.channel.send('Done. :ok_hand:'));
+            break;
+
+            case "calc":
+            console.log(`${message.author.tag} used the ${settings.botPREFIX}calc command!`);
+            logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}calc command!`);
+                let math = require('math-expression-evaluator');
+                let calcArgs = message.content.split(' ').slice(1).join(' ');
+
+                if (!calcArgs[0]) {
+                    message.channel.send({embed: {
+                        color: 3447003,
+                        footer: {
+                          icon_url: client.user.avatarURL,
+                          text: "Please input an expression."
+                        }
+                      }
+                    });
+                }
+                let calcResult;
+                try {
+                    calcResult = math.eval(calcArgs);
+                } catch (e) { 
+                    calcResult = 'Error: "Invalid Input"';
+                }
+
+                message.channel.send({embed: {
+                    color: 3447003,
+                    author: {
+                      name: 'NotABot\'s calculator',
+                      icon_url: client.user.avatarURL
+                    },
+                    fields: [
+                        { name: "Input", value: `\`\`\`js\n${calcArgs}\`\`\`` },
+                      { name: "Output", value: `\`\`\`js\n${calcResult}\`\`\`` }
+                    ],
+                    timestamp: new Date(),
+                    footer: {
+                      icon_url: client.user.avatarURL,
+                      text: "© NotABot"
+                    }
+                  }
+                });
             break;
         
         // Help commands :)
@@ -1167,14 +1209,15 @@ message.channel.send({embed: {
 **${settings.botPREFIX}issue** - Report a bug\n\
 **${settings.botPREFIX}request** - Request new features\n\
 **${settings.botPREFIX}roll** - Rolls a random number!\n\
-**${settings.botPREFIX}dick** - Sizing a dick\n\
+**${settings.botPREFIX}dick** - Sizing a dick.\n\
 **${settings.botPREFIX}dog** - Sends a picture of dog!\n\
-**${settings.botPREFIX}translate** - Translates a text\n\
-**${settings.botPREFIX}anime** - Sends a anime pic\n\
-**${settings.botPREFIX}caps** - Random caps\n\
-**${settings.botPREFIX}advice** - Gives you an advice\n\
+**${settings.botPREFIX}translate** - Translates a textץ\n\
+**${settings.botPREFIX}anime** - Sends a anime picץ\n\
+**${settings.botPREFIX}caps** - Random capsץ\n\
+**${settings.botPREFIX}advice** - Gives you an adviceץ\n\
 **${settings.botPREFIX}donate** - Help NotABot?\n\
-**${settings.botPREFIX}say** - Tell me what to say`
+**${settings.botPREFIX}say** - Tell me what to say.\n\
+**${settings.botPREFIX}calc** - Math questions calculator.`
               }
             ],
             timestamp: new Date(),
@@ -1191,8 +1234,8 @@ message.channel.send({embed: {
             message.channel.send('I could not send you my commands!');
         } 
         break;
-		
-		    case "modhelp":
+
+    case "modhelp":
     console.log(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
         logsCommands.send(`${message.author.tag} used the ${settings.botPREFIX}modhelp command!`);
 
@@ -1249,7 +1292,8 @@ message.channel.send({embed: {
 **${settings.botPREFIX}botavatar** - Changes the bot's avatar. **Usage: ${settings.botPREFIX}botavatar [LINK]**\n\
 **${settings.botPREFIX}botnick** - Changed the nickname in a server. **Usage: ${settings.botPREFIX}botnick [NICKNAME]**\n\
 **${settings.botPREFIX}eval** - Evaluates a code. **Usage: ${settings.botPREFIX}eval [CODE]**\n\
-**${settings.botPREFIX}shutdown** - Closes the CMD window!`
+**${settings.botPREFIX}shutdown** - Closes the CMD window!\n\
+**${settings.botPREFIX}botstats** - Change the bot's status! **Usage: ${settings.botPREFIX}botstats [STATUS]**`
               }
             ],
             timestamp: new Date(),
@@ -1307,4 +1351,4 @@ message.channel.send({embed: {
 });
 
 // Bot's token (Synced from settings.json)
-client.login(process.env.TOKEN);
+client.login(settings.botTOKEN)
