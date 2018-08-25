@@ -1293,7 +1293,7 @@ message.channel.send({embed: {
 **${settings.botPREFIX}botnick** - Changed the nickname in a server. **Usage: ${settings.botPREFIX}botnick [NICKNAME]**\n\
 **${settings.botPREFIX}eval** - Evaluates a code. **Usage: ${settings.botPREFIX}eval [CODE]**\n\
 **${settings.botPREFIX}shutdown** - Closes the CMD window!\n\
-**${settings.botPREFIX}botstats** - Change the bot's status! **Usage: ${settings.botPREFIX}botstats [STATUS]**`
+**${settings.botPREFIX}botstatus** - Change the bot's status! **Usage: ${settings.botPREFIX}botstats [STATUS]**`
               }
             ],
             timestamp: new Date(),
