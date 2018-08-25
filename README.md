@@ -200,6 +200,13 @@ caps|Random caps.|~caps [text]
 advice|Gives you an advice.|~advice
 donate|Help NotABot live!|~donate
 say|Tell NotABot something to say!|~say [text]
+calc|Calculates the math question|~calc [number + number]
+osu|Player stats on osu!|~osu [username]
+gif|Random gif search|~gif [text]
+cat|Random cat pic|~cat
+hastebin|Upload text to hastebin.com|~hastebin [text]
+trump|What does trump think?|~trump
+btc|Bitcoin stats|~btc
 
 ### Moderation commands
 Command|Description|Example
@@ -210,6 +217,8 @@ mute|Mutes a user with a NotAMuted role!|~mute [@mention] [time - 2w - 2 weeks]
 unmute|Unmutes a user and removes the NotAMuted role.|~unmute [@mention]
 softban|Kicks a user and deletes his messages.|~softban [@mention] [reason]
 clear|Remove messages / user's messages|~clear [number] or ~clear [@mention] [number]
+lock|Locks a channel|~lock [#channel]
+unlock|Unlocks a channel|~unlock [#channel]
 
 ### Bots owner commands
 Command|Description|Example
@@ -219,6 +228,7 @@ botavatar|Changes the bot's avatar.|~botavatar [URL]
 botnick|Changes the nickname in a server.|~botnick [text]
 eval|Evaluates a code.|~eval [code]
 shutdown|Closes the CMD window|~shutdown
+botstatus|Changes the bot's status|~botstatus [text]
 # TODO
 - [x] watch porn
 - [ ] Unban command.
